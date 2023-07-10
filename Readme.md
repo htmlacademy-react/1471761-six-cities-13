@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Luiza Leahu](https://up.htmlacademy.ru/react/13/user/1471761).
-* Наставник: `Неизвестно`.
+* Наставник: [Елена Грицук](https://htmlacademy.ru/profile/id199079).
 
 ---
 
