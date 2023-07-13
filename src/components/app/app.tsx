@@ -11,7 +11,7 @@ type AppScreenProps = {
   offersCount: number;
 }
 
-function App({ offersCount }: AppScreenProps): JSX.Element {
+function App({ offersCount }: AppScreenProps) {
   return (
 
     <BrowserRouter>
