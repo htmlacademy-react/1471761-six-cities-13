@@ -1,9 +1,13 @@
 import Logo from '../../components/logo/logo';
+import { Helmet } from 'react-helmet-async';
 
 function OfferPage() {
   return (
 
     <div className="page">
+      <Helmet>
+        <title>Six Cities -best offers</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
