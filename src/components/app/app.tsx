@@ -7,19 +7,24 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
+import {Offer} from '../../types/offers';
+
 
 type AppScreenProps = {
   offersCount: number;
+  // use Offer [] o simple Offers
+  offers: Offer[];
 }
 
-function App({ offersCount }: AppScreenProps) {
+function App({offersCount, offers}: AppScreenProps): JSX.Element {
+
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage offersCount={offersCount} />}
+            element={<MainPage offersCount={offersCount} offers={offers} />}
           />
           <Route
             path={AppRoute.Favorites}

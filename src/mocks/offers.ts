@@ -1,6 +1,6 @@
-import { OffersList } from '../types/offers-list';
+import { Offer } from '../types/offers.ts';
 
-export const offers: OffersList[] = [
+export const offersMocks: Offer[] = [
   {
     'id': 'e4d1588c-9372-4d2c-a08b-caaf23f668e6',
     'title': 'The house among olive ',
@@ -93,26 +93,4 @@ export const offers: OffersList[] = [
     'isPremium': false,
     'rating': 1.5
   },
-  {
-    'id': '2eafbc48-c722-46fd-882c-88bbcb2f6697',
-    'title': 'Canal View Prinsengracht',
-    'type': 'apartment',
-    'price': 331,
-    'previewImage': 'https://13.design.pages.academy/static/hotel/18.jpg',
-    'city': {
-      'name': 'Paris',
-      'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 48.87561,
-      'longitude': 2.375499,
-      'zoom': 16
-    },
-    'isFavorite': false,
-    'isPremium': true,
-    'rating': 2.1
-  }];
+];

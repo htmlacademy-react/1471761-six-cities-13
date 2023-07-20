@@ -1,5 +1,7 @@
 import { SingleOffer } from '../types/offer';
 
+export const AVATAR_URL = 'https://i.pravatar.cc/128';
+
 export const offer: SingleOffer =
 
   {
@@ -30,7 +32,7 @@ export const offer: SingleOffer =
     ],
     'host': {
       'name': 'Oliver Conner',
-      'avatarUrl': 'https://url-to-image/image.png',
+      'avatarUrl': `${AVATAR_URL}?rnd=${Math.random()}`,
       'isPro': false
     },
     'images': [

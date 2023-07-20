@@ -1,4 +1,4 @@
-import { Location, City } from './offers-list';
+import { Location, City } from './offers.ts';
 
 export type SingleOffer = {
   id: string;

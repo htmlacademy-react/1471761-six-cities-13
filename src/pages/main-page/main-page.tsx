@@ -1,12 +1,14 @@
 import Card from '../../card/card';
 import Logo from '../../components/logo/logo';
+import { Offer } from '../../types/offers';
 
 type MainPageProps = {
   offersCount: number;
+  offers: Offer[];
 }
 
 
-function MainPage({ offersCount }: MainPageProps): JSX.Element {
+function MainPage({ offersCount, offers }: MainPageProps): JSX.Element {
   return (
 
     <div className="page page--gray page--main">

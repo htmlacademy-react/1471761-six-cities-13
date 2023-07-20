@@ -1,5 +1,7 @@
 import { Review } from '../types/review';
 
+import { AVATAR_URL } from './offer';
+
 export const reviews: Review[] = [
 
   {
@@ -7,7 +9,7 @@ export const reviews: Review[] = [
     'date': '2019-05-08T14:13:56.569Z',
     'user': {
       'name': 'Oliver Conner',
-      'avatarUrl': 'https://url-to-image/image.png',
+      'avatarUrl': `${AVATAR_URL}?rnd=${Math.random()}`,
       'isPro': false
     },
     'comment': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',

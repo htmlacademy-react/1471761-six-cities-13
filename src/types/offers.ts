@@ -1,4 +1,4 @@
-export type OffersList = {
+export type Offer = {
   id: string;
   title: string;
   type: string;
@@ -20,4 +20,10 @@ export type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
+}
+
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
 }
