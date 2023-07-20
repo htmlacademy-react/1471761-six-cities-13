@@ -56,3 +56,12 @@ export const TITLE_RATING = [
   'badly',
   'terribly'
 ] as const;
+
+export const STARS_COUNT = 5;
+
+export enum TypeOfClasses {
+
+  FavoritePage = 'favorites',
+  AllPages = 'cities',
+}
+

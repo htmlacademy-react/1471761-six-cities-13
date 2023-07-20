@@ -11,12 +11,10 @@ import {Offer} from '../../types/offers';
 
 
 type AppScreenProps = {
-  offersCount: number;
-  // use Offer [] o simple Offers
   offers: Offer[];
 }
 
-function App({offersCount, offers}: AppScreenProps): JSX.Element {
+function App({offers}: AppScreenProps): JSX.Element {
 
   return (
     <HelmetProvider>
@@ -24,7 +22,7 @@ function App({offersCount, offers}: AppScreenProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage offersCount={offersCount} offers={offers} />}
+            element={<MainPage offers={offers} />}
           />
           <Route
             path={AppRoute.Favorites}
