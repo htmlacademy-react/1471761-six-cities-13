@@ -1,7 +1,8 @@
 import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 
-function OfferPage() {
+
+function OfferPage(): JSX.Element {
   return (
 
     <div className="page">

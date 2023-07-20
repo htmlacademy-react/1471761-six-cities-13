@@ -45,7 +45,7 @@ export const OFFER_FEATURES = [
   'Friendly Ghost'
 ] as const;
 
-export const MAX_STARS_COUNT = 5;
+export const STARS_COUNT = 5;
 export const MIN_CHARACTERS_COUNT = 50;
 export const MAX_CHARACTERS_COUNT = 300;
 
@@ -56,8 +56,6 @@ export const TITLE_RATING = [
   'badly',
   'terribly'
 ] as const;
-
-export const STARS_COUNT = 5;
 
 export enum TypeOfClasses {
 

@@ -1,7 +1,7 @@
 //import Card from '../../card/card';
 import Logo from '../../components/logo/logo';
 import { Offer } from '../../types/offers';
-import OffersList from '../../components/offers-list/offers.-list';
+import OffersList from '../../components/offers-list/offers-list';
 
 type MainPageProps = {
   offers: Offer[];

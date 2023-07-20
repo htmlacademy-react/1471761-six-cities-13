@@ -9,7 +9,8 @@ type CardProp = {
 
 function Card({ offer }: CardProp): JSX.Element {
 
-  const handleMouseOver = () => '';
+  const handleMouseEnter = () => '';
+  const handleMouseLeave = () => '';
 
   const PlaceCardMark = (): JSX.Element => (
 
@@ -21,7 +22,8 @@ function Card({ offer }: CardProp): JSX.Element {
   return (
     <article
       className="cities__card place-card"
-      onMouseOver={handleMouseOver}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {offer.isPremium && <PlaceCardMark />}
       <div className="cities__image-wrapper place-card__image-wrapper">

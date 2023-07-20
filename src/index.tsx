@@ -14,6 +14,7 @@ root.render(
   <React.StrictMode>
     <App
       offers={offersMocks}
+
     />
 
   </React.StrictMode>
