@@ -1,20 +1,23 @@
-import MainPage from '../../pages/main-page/main-page';
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { TFullOffer, TOffer } from '../../types/offers';
+
+
+import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
-import {Offer} from '../../types/offers';
 
 
 type AppScreenProps = {
-  offers: Offer[];
+  offers: TOffer[];
+  fullOffers: TFullOffer[];
 }
 
-function App({offers}: AppScreenProps): JSX.Element {
+function App({ offers, fullOffers }: AppScreenProps) {
 
   return (
     <HelmetProvider>
@@ -27,24 +30,21 @@ function App({offers}: AppScreenProps): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              < PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
-              >
-                <FavoritesPage />
+              < PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <FavoritesPage offers={offers} />
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Login}
             element={<LoginPage />}
+
           />
           <Route
-            path={AppRoute.Offer}
-            element={<OfferPage />}
+            path={`${AppRoute.Offer}/:offerId`}
+            element={<OfferPage offer={offers} fullOffers={fullOffers} />}
           />
-          <Route
-            path="*"
-            element={<NotFoundPage />}
+          <Route path="*" element={<NotFoundPage />}
           />
         </Routes>
       </BrowserRouter>

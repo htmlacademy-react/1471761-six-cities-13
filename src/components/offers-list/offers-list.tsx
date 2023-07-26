@@ -1,9 +1,9 @@
 import Card from '../../card/card';
-import { Offer } from '../../types/offers';
+import { TOffer } from '../../types/offers';
 
 
 type OffersListProps = {
-  offers: Offer[];
+  offers: TOffer[];
 }
 
 

@@ -1,6 +1,6 @@
-import { Offer } from '../types/offers.ts';
+import { TOffer } from '../types/offers.ts';
 
-export const offersMocks: Offer[] = [
+export const offersMocks: TOffer[] = [
   {
     'id': 'e4d1588c-9372-4d2c-a08b-caaf23f668e6',
     'title': 'The house among olive ',

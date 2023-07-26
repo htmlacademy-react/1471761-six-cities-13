@@ -1,8 +1,8 @@
-import { Review } from '../types/review';
+import { TReview } from '../types/review';
 
 import { AVATAR_URL } from './offer';
 
-export const reviews: Review[] = [
+export const reviews: TReview[] = [
 
   {
     'id': 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62a',
