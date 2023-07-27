@@ -1,17 +1,27 @@
+import { AppRoute, housingTypes } from '../const';
 import { TOffer } from '../types/offers';
 import { calcRating } from '../utils/common';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
+
 
 type CardProp = {
-  offer: TOffer;
+  item: TOffer;
+  className: string;
+  onMouseEnter: (id: string) => void;
+  onMouseLeave: () => void;
 }
 
 
-function Card({ offer }: CardProp): JSX.Element {
-  const {id, title, type, rating, price, isPremium, isFavorite, previewImage} = offer;
+function Card({ item, className, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
+  const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = item;
 
-  const handleMouseEnter = () => '';
-  const handleMouseLeave = () => '';
+  const handleMouseEnter = () => {
+    onMouseEnter(id);
+  };
+
+  const handleMouseLeave = () => {
+    onMouseLeave();
+  };
 
   const PlaceCardMark = (): JSX.Element => (
 
@@ -22,20 +32,14 @@ function Card({ offer }: CardProp): JSX.Element {
 
   return (
     <article
-      className="cities__card place-card"
+      className={`${className}__card place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {isPremium && <PlaceCardMark />}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${id}`}>
-          <img
-            className="place-card__image"
-            src={previewImage}
-            width={260}
-            height={200}
-            alt="Place image"
-          />
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
+        <Link to={generatePath(AppRoute.Offer, {id: item.id})}>
+          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
         </Link>
       </div>
       <div className="place-card__info">
@@ -66,7 +70,7 @@ function Card({ offer }: CardProp): JSX.Element {
             {title}
           </a>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{housingTypes[type]}</p>
       </div >
     </article >
   );

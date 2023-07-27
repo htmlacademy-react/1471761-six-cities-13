@@ -24,12 +24,12 @@ export const CITIES = [
   'Dusseldorf',
 ] as const;
 
-export const OFFER_TYPES = [
-  'hotel',
-  'apartment',
-  'room',
-  'cursed old house',
-] as const;
+export const housingTypes = {
+  hotel: 'Hotel',
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+} as const;
 
 export const OFFER_FEATURES = [
   'Wi-Fi',

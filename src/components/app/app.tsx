@@ -42,10 +42,9 @@ function App({ offers, fullOffers }: AppScreenProps) {
           />
           <Route
             path={`${AppRoute.Offer}/:offerId`}
-            element={<OfferPage offer={offers} fullOffers={fullOffers} />}
+            element={<OfferPage offers={fullOffers} />}
           />
-          <Route path="*" element={<NotFoundPage />}
-          />
+          <Route path="*" element={<NotFoundPage />}/>
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

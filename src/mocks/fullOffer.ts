@@ -2,7 +2,7 @@ import { TFullOffer } from '../types/offers';
 
 export const AVATAR_URL = 'https://i.pravatar.cc/128';
 
-export const offer: TFullOffer =
+export const fullOffersMocks: TFullOffer =
 
   {
     'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',

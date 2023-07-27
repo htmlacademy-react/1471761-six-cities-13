@@ -30,6 +30,8 @@ export type TFullOffer = {
 
 };
 
+export type TFullOffers = TFullOffer[];
+
 export type TCity = {
   name: string;
   location: TLocation;

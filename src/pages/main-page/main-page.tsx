@@ -1,4 +1,5 @@
 //import Card from '../../card/card';
+
 import Logo from '../../components/logo/logo';
 import { TOffer } from '../../types/offers';
 //import OffersList from '../../components/offers-list/offers-list';

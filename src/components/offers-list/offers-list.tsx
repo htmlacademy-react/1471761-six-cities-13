@@ -15,7 +15,7 @@ function OffersList({ offers }: OffersListProps) {
         <Card
           key={offer.id}
           offer={offer}
-          option={'city'}
+          className={'city'}
         />
       ))}
     </div>
