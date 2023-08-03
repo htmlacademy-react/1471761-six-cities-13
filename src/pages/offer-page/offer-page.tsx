@@ -27,7 +27,7 @@ function OfferPage({ offers, fullOffers }: TOfferPageProps): JSX.Element {
 
     <div className="page">
       <Helmet>
-        <title>Six Cities - best offers</title>
+        <title>Six Cities -best offers</title>
       </Helmet>
 
       <Header />
