@@ -2,18 +2,21 @@ import { useParams } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
 import { TFullOffer, TFullOffers, TOffers } from '../../types/offers';
-import Reviews from '../../components/reviews/reviews';
+import ReviewList from '../../components/reviews-list/review-list';
 import Card from '../../card/card';
 import Map from '../../components/map/map';
+import ReviewForm from '../../components/review-form/review-form';
+import { TComments } from '../../types/comments';
 
 
 type TOfferPageProps = {
   offers: TOffers;
   fullOffers: TFullOffers;
+  comments: TComments;
 
 }
 
-function OfferPage({ offers, fullOffers }: TOfferPageProps): JSX.Element {
+function OfferPage({ offers, fullOffers, comments }: TOfferPageProps): JSX.Element {
 
   const { offerId } = useParams();
   const currentOffer = fullOffers.find((item) => item.id === offerId) as TFullOffer;
@@ -118,9 +121,11 @@ function OfferPage({ offers, fullOffers }: TOfferPageProps): JSX.Element {
                     <p className="offer__text">
                       {description}
                     </p>
-
-
-                    <Reviews />
+                    <section className="offer__reviews reviews">
+                      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{currentOffer.reviews.length}</span></h2>
+                      <ReviewList comments={comments} />
+                      <ReviewForm />
+                    </section>
                   </div>
 
                 </div>

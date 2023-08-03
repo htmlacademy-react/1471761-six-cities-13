@@ -6,7 +6,7 @@ export type TComment = {
   rating: number;
 }
 
-export type Comments = Comment[];
+export type TComments = TComment[];
 
 export type TUser = {
   name: string;
