@@ -1,7 +1,7 @@
 import { TOffer } from '../../types/offers';
 import OffersList from '../../components/offers-list/offers-list';
 import { Header } from '../../components/header/header';
-import { Map } from 'leaflet';
+import Map from '../../components/map/map';
 import { useState } from 'react';
 
 type MainPageProps = {

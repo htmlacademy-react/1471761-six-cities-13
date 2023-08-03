@@ -122,7 +122,7 @@ function OfferPage({ offers, fullOffers, comments }: TOfferPageProps): JSX.Eleme
                       {description}
                     </p>
                     <section className="offer__reviews reviews">
-                      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{currentOffer.reviews.length}</span></h2>
+                      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                       <ReviewList comments={comments} />
                       <ReviewForm />
                     </section>

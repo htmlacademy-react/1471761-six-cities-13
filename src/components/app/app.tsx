@@ -10,14 +10,16 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
+import { TComments } from '../../types/comments';
 
 
 type AppScreenProps = {
   offers: TOffers;
   fullOffers: TFullOffers;
+  comments: TComments;
 }
 
-function App({ offers, fullOffers }: AppScreenProps): JSX.Element {
+function App({ offers, fullOffers, comments }: AppScreenProps): JSX.Element {
 
   return (
     <HelmetProvider>
@@ -42,7 +44,7 @@ function App({ offers, fullOffers }: AppScreenProps): JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:offerId`}
-            element={<OfferPage offers={offers} fullOffers={fullOffers} />}
+            element={<OfferPage offers={offers} fullOffers={fullOffers} comments={comments} />}
           />
           <Route path="*" element={<NotFoundPage />}/>
         </Routes>
