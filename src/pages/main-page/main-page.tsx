@@ -1,9 +1,5 @@
-//import Card from '../../card/card';
-
-//import Logo from '../../components/logo/logo';
 import { TOffer } from '../../types/offers';
 import OffersList from '../../components/offers-list/offers-list';
-//import Cities from '../../components/cities/cities';
 import { Header } from '../../components/header/header';
 import { Map } from 'leaflet';
 import { useState } from 'react';
@@ -14,6 +10,7 @@ type MainPageProps = {
 
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
+
   const city = offers[0].city;
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
 
@@ -100,7 +97,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
                 <Map
                   offers={offers}
                   city={city}
-                  selectedCard={selectedCard}
+                  selectedOffer={selectedOffer}
                 />
               </section>
             </div>

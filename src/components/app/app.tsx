@@ -1,9 +1,7 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { TFullOffer, TOffer } from '../../types/offers';
-import Map from '../map/map';
-import Reviews from '../reviews/reviews';
+import { TFullOffers, TOffers } from '../../types/offers';
 
 
 import MainPage from '../../pages/main-page/main-page';
@@ -15,12 +13,11 @@ import PrivateRoute from '../private-route/private-route';
 
 
 type AppScreenProps = {
-  offers: TOffer[];
-  fullOffers: TFullOffer[];
-  reviews: Reviews;
+  offers: TOffers;
+  fullOffers: TFullOffers;
 }
 
-function App({ offers, fullOffers, reviews }: AppScreenProps) {
+function App({ offers, fullOffers }: AppScreenProps): JSX.Element {
 
   return (
     <HelmetProvider>
@@ -45,7 +42,7 @@ function App({ offers, fullOffers, reviews }: AppScreenProps) {
           />
           <Route
             path={`${AppRoute.Offer}/:offerId`}
-            element={<OfferPage offers={offers} fullOffers={fullOffers} comments={reviews} />}
+            element={<OfferPage offers={offers} fullOffers={fullOffers} />}
           />
           <Route path="*" element={<NotFoundPage />}/>
         </Routes>

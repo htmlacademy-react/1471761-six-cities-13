@@ -1,15 +1,16 @@
-import React, { useRef, useEffect } from 'react';
-//import leaflet from 'leaflet';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { useRef, useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import { Icon, Marker, layerGroup } from 'leaflet';
-//import { TCity } from '../../types/offers';
-import { TOffer } from '../../types/offers';
+import { TCity, TOffers } from '../../types/offers';
 
 type MapProps = {
-  offers: TOffer[] | undefined;
-  selectedCard: TOffer | undefined;
+  city: TCity;
+  offers: TOffers;
+  selectedOffer: string | null;
 }
 
 const defaultCustomIcon = new Icon({
@@ -25,8 +26,8 @@ const currentCustomIcon = new Icon({
 });
 
 
-function Map({ offers, selectedCard }): MapProps {
-  const { city } = offers[0];
+function Map({ city, offers, selectedOffer }: MapProps) : JSX.Element {
+
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -42,7 +43,7 @@ function Map({ offers, selectedCard }): MapProps {
 
         marker
           .setIcon(
-            selectedCard !== undefined && offer.id === selectedCard.id
+            selectedOffer !== undefined && offer.id === selectedOffer
               ? currentCustomIcon
               : defaultCustomIcon
           ).addTo(markerLayer);
@@ -52,10 +53,10 @@ function Map({ offers, selectedCard }): MapProps {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedCard]);
+  }, [map, offers, selectedOffer]);
 
   return (
-    <section className="cities__map map" style={{ height: '500px' }} ref={mapRef}></section>
+    <section style={{ height: '500px' }} ref={mapRef}></section>
   );
 }
 

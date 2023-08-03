@@ -1,30 +1,33 @@
 import { useParams } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
-import { TFullOffer, TFullOffers, TOffer } from '../../types/offers';
+import { TFullOffer, TFullOffers, TOffers } from '../../types/offers';
 import Reviews from '../../components/reviews/reviews';
+import Card from '../../card/card';
+import Map from '../../components/map/map';
 
 
 type TOfferPageProps = {
-  offers: TOffer;
+  offers: TOffers;
   fullOffers: TFullOffers;
 
 }
 
 function OfferPage({ offers, fullOffers }: TOfferPageProps): JSX.Element {
+
   const { offerId } = useParams();
   const currentOffer = fullOffers.find((item) => item.id === offerId) as TFullOffer;
 
 
   const { images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
   const { avatarUrl, name, isPro } = currentOffer.host;
-
+  const city = offers[0].city;
 
   return (
 
     <div className="page">
       <Helmet>
-        <title>Six Cities -best offers</title>
+        <title>Six Cities - best offers</title>
       </Helmet>
 
       <Header />
@@ -122,7 +125,7 @@ function OfferPage({ offers, fullOffers }: TOfferPageProps): JSX.Element {
 
                 </div>
                 <section className="offer__map map">
-
+                  <Map city={city} offers={offers} selectedOffer={null} />
                 </section>
                 <div className="container">
                   <section className="near-places places">
@@ -130,7 +133,8 @@ function OfferPage({ offers, fullOffers }: TOfferPageProps): JSX.Element {
                       Other places in the neighbourhood
                     </h2>
                     <div className="near-places__list places__list">
-
+                      {offers.map((offer) => (
+                        <Card key={offer.id} item={offer} className={'near-places'} />)).slice(0, 3)}
                     </div>
                   </section>
                 </div>

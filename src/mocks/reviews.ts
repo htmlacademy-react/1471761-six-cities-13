@@ -1,4 +1,4 @@
-import { TReview } from '../types/review';
+import { TReview } from '../types/comments';
 
 import { AVATAR_URL } from './fullOffer';
 
