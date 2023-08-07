@@ -1,8 +1,8 @@
-import { TReview } from '../types/review';
+import { TComment } from '../types/comments';
 
 import { AVATAR_URL } from './fullOffer';
 
-export const reviews: TReview[] = [
+export const commentsMocks: TComment[] = [
 
   {
     'id': 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62a',

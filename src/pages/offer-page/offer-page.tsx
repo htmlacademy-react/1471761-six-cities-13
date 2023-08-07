@@ -1,23 +1,30 @@
 import { useParams } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
-import { TFullOffer, TFullOffers, TOffer } from '../../types/offers';
-import Reviews from '../../components/reviews/reviews';
+import { TFullOffer, TFullOffers, TOffers } from '../../types/offers';
+import ReviewList from '../../components/reviews-list/review-list';
+import Card from '../../card/card';
+import Map from '../../components/map/map';
+import ReviewForm from '../../components/review-form/review-form';
+import { TComments } from '../../types/comments';
 
 
 type TOfferPageProps = {
-  offers: TOffer;
+  offers: TOffers;
   fullOffers: TFullOffers;
+  comments: TComments;
 
 }
 
-function OfferPage({ fullOffers, offers }: TOfferPageProps): JSX.Element {
+function OfferPage({ offers, fullOffers, comments }: TOfferPageProps): JSX.Element {
+
   const { offerId } = useParams();
-  const currentOffer = fullOffers.find((item) => item.id === offerId) as TFullOffer
+  const currentOffer = fullOffers.find((item) => item.id === offerId) as TFullOffer;
 
 
   const { images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
   const { avatarUrl, name, isPro } = currentOffer.host;
+  const city = offers[0].city;
 
   return (
 
@@ -44,10 +51,11 @@ function OfferPage({ fullOffers, offers }: TOfferPageProps): JSX.Element {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {isPremium &&
+              {isPremium && (
                 <div className="offer__mark">
                   <span>Premium</span>
-                </div>}
+                </div>
+              )}
 
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
@@ -55,7 +63,8 @@ function OfferPage({ fullOffers, offers }: TOfferPageProps): JSX.Element {
                   className={isFavorite
                     ? 'offer__bookmark-button offer__bookmark-button--active button'
                     : 'offer__bookmark-button button'}
-                  type="button">
+                  type="button"
+                >
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -99,36 +108,54 @@ function OfferPage({ fullOffers, offers }: TOfferPageProps): JSX.Element {
                       src={avatarUrl}
                       width={74}
                       height={74}
-                      alt="Host avatar" />
+                      alt="Host avatar"
+                    />
                   </div>
                   <span className="offer__user-name">{name}</span>
-                  {isPro &&
-                    <><span className="offer__user-status">
+                  {isPro && (
+                    <span className="offer__user-status">
                       Pro
-                    </span><div className="offer__description">
-                        <p className="offer__text">
-                          {description}
-                        </p>}
-                      </div>
-                      <Reviews />
-                      <section className="offer__map map"></section>
-                      <div className="container">
-                        <section className="near-places places">
-                          <h2 className="near-places__title">
-                            Other places in the neighbourhood
-                          </h2>
-                          <div className="near-places__list places__list">
+                    </span>
+                  )}
+                  <div className="offer__description">
+                    <p className="offer__text">
+                      {description}
+                    </p>
+                    <section className="offer__reviews reviews">
+                      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                      <ReviewList comments={comments} />
+                      <ReviewForm />
+                    </section>
+                  </div>
 
-                          </div>
-                        </section>
-                      </div>
-                      <section/>
+                </div>
+                <section className="offer__map map">
+                  <Map city={city} offers={offers} selectedOffer={null} />
+                </section>
+                <div className="container">
+                  <section className="near-places places">
+                    <h2 className="near-places__title">
+                      Other places in the neighbourhood
+                    </h2>
+                    <div className="near-places__list places__list">
+                      {offers.map((offer) => (
+                        <Card key={offer.id}
+                          item={offer}
+                          className={'near-places'}
+                        />)).slice(0, 3)}
+                    </div>
+                  </section>
+                </div>
 
-              </div>
-            </div >
+              </div >
+            </div>
+
+
           </div>
-          );
-          
-          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
 
-          export default OfferPage;
+export default OfferPage;

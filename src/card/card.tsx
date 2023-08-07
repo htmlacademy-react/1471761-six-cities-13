@@ -1,4 +1,4 @@
-import { AppRoute, housingTypes } from '../const';
+import { AppRoute } from '../const';
 import { TOffer } from '../types/offers';
 import { calcRating } from '../utils/common';
 import { Link, generatePath } from 'react-router-dom';
@@ -11,6 +11,13 @@ type CardProp = {
   onMouseLeave: () => void;
 }
 
+/*const housingTypes = {
+  hotel: 'Hotel',
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+} as const;
+*/
 
 function Card({ item, className, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
   const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = item;
@@ -70,7 +77,7 @@ function Card({ item, className, onMouseEnter, onMouseLeave }: CardProp): JSX.El
             {title}
           </a>
         </h2>
-        <p className="place-card__type">{housingTypes[type]}</p>
+        <p className="place-card__type">{type}</p>
       </div >
     </article >
   );
