@@ -139,10 +139,7 @@ function OfferPage({ offers, fullOffers, comments }: TOfferPageProps): JSX.Eleme
                     </h2>
                     <div className="near-places__list places__list">
                       {offers.map((offer) => (
-                        <Card key={offer.id}
-                          item={offer}
-                          className={'near-places'}
-                        />)).slice(0, 3)}
+                        <Card key={offer.id} item={offer} className={'near-places'} />)).slice(0, 3)}
                     </div>
                   </section>
                 </div>
