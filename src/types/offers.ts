@@ -11,9 +11,6 @@ export type TOffer = {
   previewImage: string;
 }
 
-export type TOffers = TOffer[];
-
-
 export type TFullOffer = {
   id: string;
   title: string;
@@ -24,7 +21,6 @@ export type TFullOffer = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  previewImage: string;
   description: string;
   bedrooms: number;
   goods: string[];

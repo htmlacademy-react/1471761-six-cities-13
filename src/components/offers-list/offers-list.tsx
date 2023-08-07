@@ -4,24 +4,22 @@ import { TOffer } from '../../types/offers';
 
 type OffersListProps = {
   offers: TOffer[];
-  onCardMouseEnter: (id: string) => void;
-  onCardMouseLeave: () => void;
 }
 
 
-function OffersList({ offers, onCardMouseEnter, onCardMouseLeave }: OffersListProps) {
+function OffersList({ offers }: OffersListProps) {
 
   return (
-    offers.map((offer) => (
-      <Card
-        key={offer.id}
-        item={offer}
-        className={'cities'}
-        onMouseEnter={onCardMouseEnter}
-        onMouseLeave={onCardMouseLeave}
-      />
-    )
-    ));
+    <div className="cities__places-list places__list tabs__content">
+      {offers.map((offer) => (
+        <Card
+          key={offer.id}
+          offer={offer}
+          className={'city'}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default OffersList;

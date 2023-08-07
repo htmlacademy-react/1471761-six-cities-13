@@ -1,21 +1,12 @@
 import Card from '../../card/card';
 import { TOffer } from '../../types/offers';
-import { useState } from 'react';
+
 
 type TCitiesProps = {
   offers: TOffer[];
 };
 
 function Cities({ offers}: TCitiesProps) {
-  const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
-  const handleCardMouseEnter = (idOffer: string) => {
-    setSelectedOffer(idOffer);
-  };
-
-  const handleCardMouseLeave = () => {
-    setSelectedOffer(null);
-  };
-
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -52,9 +43,6 @@ function Cities({ offers}: TCitiesProps) {
             {offers.map((offer) => (
               <Card key ={offer.id} offer={offer} block="cities" />
             ))}
-
-            onCardMouseEnter={handleCardMouseEnter}
-            onCardMouseLeave={handleCardMouseLeave}
           </div>
         </section>
         <div className="cities__right-section">
