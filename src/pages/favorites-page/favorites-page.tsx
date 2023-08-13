@@ -7,6 +7,7 @@ import { Header } from '../../components/header/header';
 import { CITIES } from '../../const';
 import Card from '../../card/card';
 import Footer from '../../components/footer/footer';
+import { useAppSelector } from '../../hooks';
 
 type FavoritesProps = {
   offers: TOffer[];
@@ -16,7 +17,14 @@ function FavoritesPage({ offers }: FavoritesProps) {
   const favorites = offers.filter((offer) => offer.isFavorite);
   if (favorites === null) {
     return (<NotFoundPage />);
-  }
+    }
+    cityGroup[city].push(offer);
+
+
+function FavoritesPage() {
+  const favoriteOffers = useAppSelector((state) => state.favorites);
+  const favoriteOffersByCity = getOffersByCity(favoriteOffers);
+
 
 
   return (

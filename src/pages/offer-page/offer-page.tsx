@@ -1,31 +1,45 @@
 import { useParams } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
-import { TFullOffer, TFullOffers, TOffers } from '../../types/offers';
 import ReviewList from '../../components/reviews-list/review-list';
-import Card from '../../card/card';
 import Map from '../../components/map/map';
 import ReviewForm from '../../components/review-form/review-form';
-import { TComments } from '../../types/comments';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { getPercent } from '../../utils/utils';
+import OffersList from '../../components/offers-list/offers-list';
+import { fetchNearPlacesOffers, fetchOffer, dropOffer } from '../../store/action';
+import classNames from 'classnames';
 
-
-type TOfferPageProps = {
-  offers: TOffers;
-  fullOffers: TFullOffers;
-  comments: TComments;
-
-}
-
-function OfferPage({ offers, fullOffers, comments }: TOfferPageProps): JSX.Element {
-
+function OfferPage() {
+  
+  const currentOffer = useAppSelector((state) => state.offer);
+  const dispatch = useAppDispatch();
+  const { isPremium, title, rating, price, images, type, bedrooms, maxAdults, goods, isFavorite } = currentOffer;
   const { offerId } = useParams();
-  const currentOffer = fullOffers.find((item) => item.id === offerId) as TFullOffer;
 
+  useEffect(() => {
+    if (offerId) {
+      dispatch(fetchOffer(offerId));
+      dispatch(fetchNearPlacesOffers(offerId));
+    }
+
+    return () => {
+      dispatch(dropOffer());
+    };
+  }, [offerId, dispatch]);
+
+  //const { avatarUrl, name, isPro } = currentOffer.host;
+  // const city = offers[0].city;
+
+  const offers = useAppSelector((state) => state.fullOffers);
+  const currentOffer = offers.find((offer) => offer.id === offerId);
+  const nearPlacesOffers = offers.filter((offer) =>
+    currentOffer?.city.name === offer.city.name).filter((offer) => offer.id !== offerId).slice(0, 3);
+
+  const mapOffers = [...nearPlacesOffers, currentOffer];
 
   const { images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
-  const { avatarUrl, name, isPro } = currentOffer.host;
-  const city = offers[0].city;
-
   return (
 
     <div className="page">
@@ -73,7 +87,7 @@ function OfferPage({ offers, fullOffers, comments }: TOfferPageProps): JSX.Eleme
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${Math.floor(rating) * 20}%` }}></span>
+                  <span style={{ width: getPercent(rating) }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
@@ -130,17 +144,22 @@ function OfferPage({ offers, fullOffers, comments }: TOfferPageProps): JSX.Eleme
 
                 </div>
                 <section className="offer__map map">
-                  <Map city={city} offers={offers} selectedOffer={null} />
+                  <Map
+                    className='offer'
+                    city={nearPlacesOffers[0]?.city}
+                    offers={mapOffers}
+                    currentOffer={currentOffer}
+                  />
                 </section>
                 <div className="container">
                   <section className="near-places places">
                     <h2 className="near-places__title">
                       Other places in the neighbourhood
                     </h2>
-                    <div className="near-places__list places__list">
-                      {offers.map((offer) => (
-                        <Card key={offer.id} item={offer} className={'near-places'} />)).slice(0, 3)}
-                    </div>
+                    <OffersList
+                      className="near-places__list places__list"
+                      offers={nearPlacesOffers}
+                    />
                   </section>
                 </div>
 
@@ -151,7 +170,7 @@ function OfferPage({ offers, fullOffers, comments }: TOfferPageProps): JSX.Eleme
           </div>
         </section>
       </main>
-    </div>
+    </div >
   );
 }
 

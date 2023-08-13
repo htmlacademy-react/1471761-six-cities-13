@@ -1,26 +1,29 @@
-import { TOffer } from '../../types/offers';
+//import { TOffer } from '../../types/offers';
 import OffersList from '../../components/offers-list/offers-list';
 import { Header } from '../../components/header/header';
 import Map from '../../components/map/map';
-import { useState } from 'react';
-
-type MainPageProps = {
-  offers: TOffer[];
-}
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchOffers } from '../../store/action';
 
 
-function MainPage({ offers }: MainPageProps): JSX.Element {
+function MainPage() {
+  const dispatch = useAppDispatch();
+  const activeCity = useAppSelector((state) => state.activeCity);
+  const offers = useAppSelector((state) => state.fullOffers);
+  const offersByCity = offers.filter(
+    (offer) => offer.city.name === activeCity.name
+  );
 
-  const city = offers[0].city;
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
 
-  const handleCardMouseEnter = (idOffer: string) => {
-    setSelectedOffer(idOffer);
+  const cardHoverHandler = (offerId: string | null): void => {
+    setSelectedOffer(offerId);
   };
 
-  const handleCardMouseLeave = () => {
-    setSelectedOffer(null);
-  };
+  useEffect(() => {
+    dispatch(fetchOffers());
+  }, [dispatch]);
 
   return (
 
@@ -87,8 +90,8 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               <div className="cities__places-list places__list tabs__content">
                 <OffersList
                   offers={offers}
-                  onCardMouseEnter={handleCardMouseEnter}
-                  onCardMouseLeave={handleCardMouseLeave}
+                  onCardMouseEnter={onCardMouseEnter}
+                  onCardMouseLeave={onCardMouseLeave}
                 />
               </div>
             </section>

@@ -1,11 +1,10 @@
 import { AppRoute } from '../const';
 import { TOffer } from '../types/offers';
-import { calcRating } from '../utils/common';
 import { Link, generatePath } from 'react-router-dom';
 
 
 type CardProp = {
-  item: TOffer;
+  offer: TOffer;
   className: string;
   onMouseEnter: (id: string) => void;
   onMouseLeave: () => void;
@@ -16,18 +15,18 @@ type CardProp = {
   apartment: 'Apartment',
   room: 'Private Room',
   house: 'House',
-} as const;
-*/
+} as const; */
 
-function Card({ item, className, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
-  const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = item;
+
+function Card({ offer, className, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
+  const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = offer;
 
   const handleMouseEnter = () => {
-    onMouseEnter(id);
+    onMouseEnter?.(id);
   };
 
   const handleMouseLeave = () => {
-    onMouseLeave();
+    onMouseLeave?.();
   };
 
   const PlaceCardMark = (): JSX.Element => (
@@ -45,7 +44,7 @@ function Card({ item, className, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     >
       {isPremium && <PlaceCardMark />}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={generatePath(AppRoute.Offer, {id: item.id})}>
+        <Link to={generatePath(AppRoute.Offer, {id: offer.id})}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
         </Link>
       </div>
@@ -68,7 +67,7 @@ function Card({ item, className, onMouseEnter, onMouseLeave }: CardProp): JSX.El
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${calcRating(rating)}%` }} />
+            <span style={{ width: `${(rating * 20).toString()}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

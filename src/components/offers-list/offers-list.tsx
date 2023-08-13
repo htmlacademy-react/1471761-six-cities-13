@@ -4,8 +4,8 @@ import { TOffer } from '../../types/offers';
 
 type OffersListProps = {
   offers: TOffer[];
-  onCardMouseEnter: (id: string) => void;
-  onCardMouseLeave: () => void;
+  onCardMouseEnter?: (id: string) => void;
+  onCardMouseLeave?: () => void;
 }
 
 
