@@ -71,6 +71,7 @@ function MainPage() {
             <div className="cities__right-section">
 
               <Map
+                cardType={'cities'}
                 offers={offersByCity}
                 city={offersByCity[0].city}
                 selectedOffer={selectedOffer}

@@ -5,7 +5,7 @@ type TReviewsProps = {
   comments: TComment[];
 };
 
-function ReviewList({ comments }: TReviewsProps): JSX.Element {
+export function ReviewList({ comments }: TReviewsProps): JSX.Element {
 
   return (
 
@@ -21,4 +21,3 @@ function ReviewList({ comments }: TReviewsProps): JSX.Element {
   );
 }
 
-export default ReviewList;

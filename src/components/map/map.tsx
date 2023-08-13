@@ -5,12 +5,14 @@ import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import { Icon, Marker, layerGroup } from 'leaflet';
-import { TCity, TOffers } from '../../types/offers';
+import { TCity, TFullOffer, TOffer } from '../../types/offers';
+import classNames from 'classnames';
 
 type MapProps = {
   city: TCity;
-  offers: TOffers;
+  offers?: TOffer[] | TFullOffer[];
   selectedOffer: string | null;
+  cardType: 'cities' | 'offer';
 }
 
 const defaultCustomIcon = new Icon({
@@ -26,7 +28,7 @@ const currentCustomIcon = new Icon({
 });
 
 
-function Map({ city, offers, selectedOffer }: MapProps) : JSX.Element {
+function Map({ city, offers, cardType, selectedOffer }: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -35,7 +37,8 @@ function Map({ city, offers, selectedOffer }: MapProps) : JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((offer) => {
+      offers?.forEach((offer) => {
+
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
@@ -56,7 +59,16 @@ function Map({ city, offers, selectedOffer }: MapProps) : JSX.Element {
   }, [map, offers, selectedOffer]);
 
   return (
-    <section style={{ height: '500px' }} ref={mapRef}></section>
+    <section
+      className={classNames(
+        `${cardType}__map`,
+        'map'
+      )}
+      style={{ height: '500px' }}
+      ref={mapRef}
+    >
+
+    </section>
   );
 }
 

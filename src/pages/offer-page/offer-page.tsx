@@ -36,6 +36,7 @@ function OfferPage() {
 
   const offers = useAppSelector((state) => state.fullOffers);
   const currentOffer = offers.find((offer) => offer.id === offerId);
+  const comments = useAppSelector((state) => state.comments);
 
   const nearPlacesOffers = offers.filter((offer) =>
     currentOffer?.city.name === offer.city.name).filter((offer) => offer.id !== offerId).slice(0, 3);
@@ -155,7 +156,7 @@ function OfferPage() {
                     </p>
                     <section className="offer__reviews reviews">
                       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-                      <ReviewList comments={comments} />
+                      {offerId && <ReviewList comments={comments} />}
                       <ReviewForm />
                     </section>
                   </div>
@@ -163,7 +164,7 @@ function OfferPage() {
                 </div>
                 <section className="offer__map map">
                   <Map
-                    className='offer'
+                    cardType={'offer'}
                     city={nearPlacesOffers[0]?.city}
                     offers={mapOffers}
                     currentOffer={currentOffer}
@@ -175,7 +176,6 @@ function OfferPage() {
                       Other places in the neighbourhood
                     </h2>
                     <OffersList
-                      className="near-places__list places__list"
                       offers={nearPlacesOffers}
                     />
                   </section>
