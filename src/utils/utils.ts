@@ -28,4 +28,4 @@ function sortingOffersByType(offers: TFullOffer[], type: TSorting): TFullOffer[]
   }
 }
 
-export { getPercent, getOffersByCity, sortingOffersByType, getRating };
+export { getPercent, getOffersByCity, sortingOffersByType };

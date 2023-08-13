@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
-import ReviewList from '../../components/reviews-list/review-list';
+import {ReviewList} from '../../components/reviews-list/review-list';
 import Map from '../../components/map/map';
 import ReviewForm from '../../components/review-form/review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -9,13 +9,14 @@ import { useEffect } from 'react';
 import { getPercent } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
 import { fetchNearPlacesOffers, fetchOffer, dropOffer } from '../../store/action';
-import classNames from 'classnames';
+import NotFoundPage from '../not-found-page/not-found-page';
+//import classNames from 'classnames';
 
 function OfferPage() {
-  
-  const currentOffer = useAppSelector((state) => state.offer);
+
+  // const currentOffer = useAppSelector((state) => state.offer);
   const dispatch = useAppDispatch();
-  const { isPremium, title, rating, price, images, type, bedrooms, maxAdults, goods, isFavorite } = currentOffer;
+  //const { isPremium, title, rating, price, images, type, bedrooms, maxAdults, goods, isFavorite } = currentOffer;
   const { offerId } = useParams();
 
   useEffect(() => {
@@ -29,17 +30,25 @@ function OfferPage() {
     };
   }, [offerId, dispatch]);
 
-  //const { avatarUrl, name, isPro } = currentOffer.host;
+
   // const city = offers[0].city;
 
   const offers = useAppSelector((state) => state.fullOffers);
   const currentOffer = offers.find((offer) => offer.id === offerId);
+
   const nearPlacesOffers = offers.filter((offer) =>
     currentOffer?.city.name === offer.city.name).filter((offer) => offer.id !== offerId).slice(0, 3);
 
   const mapOffers = [...nearPlacesOffers, currentOffer];
+  const { avatarUrl, name, isPro } = currentOffer.host;
+
+
+  if (!currentOffer) {
+    return <NotFoundPage />;
+  }
 
   const { images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
+
   return (
 
     <div className="page">
