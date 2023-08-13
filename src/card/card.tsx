@@ -5,9 +5,9 @@ import { Link, generatePath } from 'react-router-dom';
 
 type CardProp = {
   offer: TOffer;
-  className: string;
-  onMouseEnter: (id: string) => void;
-  onMouseLeave: () => void;
+  cardType: string;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
 }
 
 /*const housingTypes = {
@@ -18,14 +18,14 @@ type CardProp = {
 } as const; */
 
 
-function Card({ offer, className, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
+function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
   const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = offer;
 
-  const handleMouseEnter = () => {
+  const onCardMouseEnter = () => {
     onMouseEnter?.(id);
   };
 
-  const handleMouseLeave = () => {
+  const onCardMouseLeave = () => {
     onMouseLeave?.();
   };
 
@@ -38,12 +38,12 @@ function Card({ offer, className, onMouseEnter, onMouseLeave }: CardProp): JSX.E
 
   return (
     <article
-      className={`${className}__card place-card`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className={`${cardType}__card place-card`}
+      onMouseEnter={onCardMouseEnter}
+      onMouseLeave={onCardMouseLeave}
     >
       {isPremium && <PlaceCardMark />}
-      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={generatePath(AppRoute.Offer, {id: offer.id})}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
         </Link>

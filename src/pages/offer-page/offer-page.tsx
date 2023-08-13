@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
-import {ReviewList} from '../../components/reviews-list/review-list';
+import { ReviewList } from '../../components/reviews-list/review-list';
 import Map from '../../components/map/map';
 import ReviewForm from '../../components/review-form/review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -15,9 +15,10 @@ import NotFoundPage from '../not-found-page/not-found-page';
 function OfferPage() {
 
   // const currentOffer = useAppSelector((state) => state.offer);
-  const dispatch = useAppDispatch();
+
   //const { isPremium, title, rating, price, images, type, bedrooms, maxAdults, goods, isFavorite } = currentOffer;
   const { offerId } = useParams();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (offerId) {
@@ -81,17 +82,25 @@ function OfferPage() {
               )}
 
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{title}</h1>
+                <h1 className="offer__name">
+                  {title}
+                </h1>
                 <button
                   className={isFavorite
                     ? 'offer__bookmark-button offer__bookmark-button--active button'
                     : 'offer__bookmark-button button'}
                   type="button"
                 >
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
+                  <svg
+                    className="offer__bookmark-icon"
+                    width={31}
+                    height={33}
+                  >
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
+                  <span className="visually-hidden">
+                    To bookmarks
+                  </span>
                 </button>
               </div>
               <div className="offer__rating rating">

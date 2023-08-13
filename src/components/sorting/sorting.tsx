@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import classNames from 'classnames';
-
+//import { useAppDispatch } from '../../hooks';
 import { TSorting } from '../../types/sorting';
 import { SortOffersType } from '../../const';
 
 type SortingProps = {
   activeSorting: TSorting;
   onChange: (newSorting: TSorting) => void;
+
 };
 
 function Sorting({ activeSorting, onChange }: SortingProps) {

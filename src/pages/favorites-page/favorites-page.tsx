@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { TFullOffer } from '../../types/offers';
+//import { TFullOffer } from '../../types/offers';
 //import NotFoundPage from '../not-found-page/not-found-page';
 import { Header } from '../../components/header/header';
 //import { AppRoute } from '../../const';
@@ -11,10 +11,10 @@ import { useAppSelector } from '../../hooks';
 import { TOffer } from '../../types/offers';
 import { Link } from 'react-router-dom';
 import FavoritesEmptyPage from './favorites-empty-page';
-import OffersList from '../../components/offers-list/offers-list';
+import OfferList from '../../components/offers-list/offers-list';
 
 type TOffersByCity = {
-  [city: string]: TFullOffer[];
+  [city: string]: TOffer[];
 }
 
 const getOffersByCity = (offers: TOffer[]) =>
@@ -64,12 +64,9 @@ function FavoritesPage() {
                         </Link>
                       </div>
                     </div>
-                    <div className="favorites__places">
-                      <OfferList
-                        className="favorites__places"
-                        offers={offersGroup}
-                      />
-                    </div>
+
+                    <OfferList offers={offersGroup}/>
+
                   </li>)
                 )}
               </ul>

@@ -3,9 +3,8 @@ import { TFullOffer, TOffer } from '../types/offers';
 import { TSorting } from '../types/sorting';
 
 
-/*function getRating (number: number):) {
-  Math.floor(rating) * 20;
-}*/
+export const getRating = (rating: number) =>
+  `${Math.round(rating) / STARS_COUNT * 100}%`;
 
 function getPercent(number: number): string {
   return `${((Math.round(number) * 100) / STARS_COUNT) * 20}%`;
