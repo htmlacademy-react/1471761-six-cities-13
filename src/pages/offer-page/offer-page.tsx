@@ -10,13 +10,10 @@ import { getPercent } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
 import { fetchNearPlacesOffers, fetchOffer, dropOffer } from '../../store/action';
 import NotFoundPage from '../not-found-page/not-found-page';
-//import classNames from 'classnames';
+
 
 function OfferPage() {
 
-  // const currentOffer = useAppSelector((state) => state.offer);
-
-  //const { isPremium, title, rating, price, images, type, bedrooms, maxAdults, goods, isFavorite } = currentOffer;
   const { offerId } = useParams();
   const dispatch = useAppDispatch();
 
@@ -31,8 +28,6 @@ function OfferPage() {
     };
   }, [offerId, dispatch]);
 
-
-  // const city = offers[0].city;
 
   const offers = useAppSelector((state) => state.fullOffers);
   const currentOffer = offers.find((offer) => offer.id === offerId);

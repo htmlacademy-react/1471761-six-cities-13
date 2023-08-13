@@ -1,11 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-//import { TFullOffer } from '../../types/offers';
-//import NotFoundPage from '../not-found-page/not-found-page';
 import { Header } from '../../components/header/header';
-//import { AppRoute } from '../../const';
-//import { Link } from 'react-router-dom';
-//import { CITIES } from '../../const';
-//import Card from '../../card/card';
 import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks';
 import { TOffer } from '../../types/offers';

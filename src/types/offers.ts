@@ -47,8 +47,6 @@ export type TLocation = {
   zoom: number;
 }
 
-// export type MarkerProps = Omit<TCity, 'location:zoom'>;
-
 export type THost = {
   name: string;
   avatarUrl: string;
