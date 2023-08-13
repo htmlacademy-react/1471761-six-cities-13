@@ -1,5 +1,5 @@
 import { TComment } from '../../types/comments';
-import { getRating } from '../../const';
+import { getRating } from '../../utils/utils';
 
 type ReviewItemProps = {
   commentItem: TComment;

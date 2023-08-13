@@ -24,12 +24,12 @@ export const CITIES = [
   'Dusseldorf',
 ] as const;
 
-export const housingTypes = {
-  hotel: 'Hotel',
-  apartment: 'Apartment',
-  room: 'Private Room',
-  house: 'House',
-} as const;
+export enum HousingTypes {
+  hotel = 'Hotel',
+  apartment = 'Apartment',
+  room = 'Private Room',
+  house = 'House',
+}
 
 export const OFFER_FEATURES = [
   'Wi-Fi',
@@ -57,11 +57,18 @@ export const TITLE_RATING = [
   'terribly'
 ] as const;
 
-export enum TypeOfClasses {
+export enum TypeOfCards {
 
   FavoritePage = 'favorites',
   AllPages = 'cities',
 }
+
+export const SortOffersType = {
+  Popular: 'Popular',
+  LowToHigh: 'Price: low to high',
+  HightToLow: 'Price: high to low',
+  TopRated: 'Top rated first',
+};
 
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 
@@ -70,4 +77,5 @@ export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensi
 export const TILE_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
-export const getRating = (rating: number) => Math.floor(rating) * 20;
+export const MAX_COMMENT_COUNT = 10;
+
