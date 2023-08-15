@@ -1,4 +1,4 @@
-import { TComment } from '../types/comments';
+/*import { TComment } from '../types/comments';
 
 import { AVATAR_URL } from './fullOffer';
 
@@ -40,3 +40,4 @@ export const commentsMocks: TComment[] = [
     'rating': 1
   }
 ];
+*/

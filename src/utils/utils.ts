@@ -1,5 +1,5 @@
 import { SortOffersType, STARS_COUNT } from '../const';
-import { TFullOffer, TOffer } from '../types/offers';
+import { TOffer } from '../types/offers';
 import { TSorting } from '../types/sorting';
 
 
@@ -10,11 +10,11 @@ function getPercent(number: number): string {
   return `${((Math.round(number) * 100) / STARS_COUNT) * 20}%`;
 }
 
-function getOffersByCity(city: string | undefined, offers: TOffer[] | TFullOffer[]): TOffer[] | TFullOffer[] {
+function getOffersByCity(city: string | undefined, offers: TOffer[]): TOffer[] {
   return offers.filter((offer) => city === offer.city.name);
 }
 
-function sortingOffersByType(offers: TFullOffer[], type: TSorting): TFullOffer[] {
+function sortingOffersByType(offers: TOffer[], type: TSorting): TOffer[] {
   switch (type) {
     case SortOffersType.LowToHigh:
       return offers.sort((a, b) => a.price - b.price);

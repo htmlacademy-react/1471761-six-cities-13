@@ -1,4 +1,4 @@
-import { TFullOffer } from '../types/offers';
+/*import { TFullOffer } from '../types/offers';
 
 export const AVATAR_URL = 'https://i.pravatar.cc/128';
 
@@ -107,3 +107,4 @@ export const fullOffersMocks: TFullOffer[] = [
     maxAdults: 5
   }
 ];
+*/

@@ -1,4 +1,4 @@
-import { TOffer } from '../types/offers.ts';
+/*import { TOffer } from '../types/offers.ts';
 
 export const offersMocks: TOffer[] = [
   {
@@ -94,3 +94,4 @@ export const offersMocks: TOffer[] = [
     previewImage: 'https://13.design.pages.academy/static/hotel/12.jpg'
   }
 ];
+*/
