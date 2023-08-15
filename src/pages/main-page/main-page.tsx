@@ -1,9 +1,9 @@
 import OffersList from '../../components/offers-list/offers-list';
 import { Header } from '../../components/header/header';
 import Map from '../../components/map/map';
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOffers } from '../../store/action';
+import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
+//import { fetchOffers } from '../../store/action';
 import Tabs from '../../components/tabs/tabs';
 import Sorting from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
@@ -13,21 +13,19 @@ function MainPage() {
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
   const [activeSorting, setActiveSorting] = useState<TSorting>('Popular');
 
-  const dispatch = useAppDispatch();
+  //const dispatch = useAppDispatch();
 
   const currentCity = useAppSelector((state) => state.activeCity);
-  const offers = useAppSelector((state) => state.fullOffers);
-
-
+  const offers = useAppSelector((state) => state.offers);
   const offersByCity = offers.filter(
     (offer) => offer.city.name === currentCity);
 
   const onMouseEnter = (id: string) => setSelectedOffer(id);
   const onMouseLeave = () => setSelectedOffer(null);
 
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(fetchOffers());
-  }, [dispatch]);
+  }, [dispatch]);  */
 
   return (
 
