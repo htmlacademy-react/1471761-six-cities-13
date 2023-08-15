@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { TFullOffer, TOffer } from '../types/offers';
 import { TComment } from '../types/comments';
+import { AuthorizationStatus } from '../const';
 
 export const setActiveCity = createAction<string>('OFFERS/setActiveCity');
 
@@ -21,3 +22,5 @@ export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersD
 export const setFullOfferDataLoadingStatus = createAction<boolean>('data/setFullOfferDataLoadingStatus');
 
 export const setCommentsDataLoadingStatus = createAction<boolean>('data/setCommentsDataLoadingStatus');
+
+export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');

@@ -8,18 +8,19 @@ import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to.top';
-import { useAppDispatch } from '../../hooks';
-import { fetchFavorites } from '../../store/action';
+//import { useAppDispatch } from '../../hooks';
+//import { fetchFavorites } from '../../store/action';
 import { AuthorizationStatus, AppRoute } from '../../const';
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 
 
 function App() {
-  const dispatch = useAppDispatch();
+  //const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(fetchFavorites());
   }, [dispatch]);
+*/
 
   return (
     <HelmetProvider>

@@ -2,7 +2,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TFullOffer, TOffer } from '../types/offers';
 import { TComment } from '../types/comments';
-import { CITIES } from '../const';
+import { AuthorizationStatus, CITIES } from '../const';
 
 import {
   fetchOffer,
@@ -14,7 +14,8 @@ import {
   fetchFavorites,
   setFullOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
-  setCommentsDataLoadingStatus
+  setCommentsDataLoadingStatus,
+  requireAuthorization,
 } from './action';
 
 
@@ -34,6 +35,7 @@ const initialState: {
   isOffersDataLoading: boolean;
   isFullOfferDataLoading: boolean;
   isCommentsDataLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
 } = {
   offer: null,
   offers: [],
@@ -45,6 +47,7 @@ const initialState: {
   isOffersDataLoading: false,
   isFullOfferDataLoading: false,
   isCommentsDataLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 
@@ -80,6 +83,9 @@ const reducer = createReducer(initialState, (builder) =>
     })
     .addCase(setCommentsDataLoadingStatus, (state, action) => {
       state.isCommentsDataLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     })
 );
 
