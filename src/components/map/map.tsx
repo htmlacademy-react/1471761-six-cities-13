@@ -56,7 +56,7 @@ function Map({ city, offers, cardType, selectedOffer }: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer,city]);
 
   return (
     <section

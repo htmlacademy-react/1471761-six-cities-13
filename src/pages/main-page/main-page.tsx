@@ -22,6 +22,7 @@ function MainPage() {
 
   const onMouseEnter = (id: string) => setSelectedOffer(id);
   const onMouseLeave = () => setSelectedOffer(null);
+  const city = offersByCity[0]?.city;
 
   /*useEffect(() => {
     dispatch(fetchOffers());
@@ -59,7 +60,7 @@ function MainPage() {
               <Map
                 cardType={'cities'}
                 offers={offersByCity}
-                city={offersByCity[0].city}
+                city={city}
                 selectedOffer={selectedOffer}
               />
 
