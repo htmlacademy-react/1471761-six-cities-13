@@ -9,7 +9,7 @@ export const fetchOffers = createAction('OFFERS/fetch', (offers: TOffer[]) => ({
 
 export const fetchOffer = createAction<TFullOffer>('OFFER/fetch');
 
-export const fetchComments = createAction('COMMENTS/fetch', (comments: TComment[] | null) => ({ payload: comments }));
+export const loadComments = createAction('COMMENTS/fetch', (comments: TComment[] | null) => ({ payload: comments }));
 
 export const fetchNearPlacesOffers = createAction('NEARPLACESOFFER/fetch', (nearPlacesOffers: TOffer[] | null) => ({ payload: nearPlacesOffers }));
 

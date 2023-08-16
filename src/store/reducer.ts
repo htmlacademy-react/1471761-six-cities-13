@@ -8,7 +8,7 @@ import {
   fetchOffer,
   fetchOffers,
   fetchNearPlacesOffers,
-  fetchComments,
+  loadComments,
   dropOffer,
   setActiveCity,
   fetchFavorites,
@@ -62,7 +62,7 @@ const reducer = createReducer(initialState, (builder) =>
     .addCase(fetchNearPlacesOffers, (state, action) => {
       state.nearPlacesOffers = action.payload;
     })
-    .addCase(fetchComments, (state, action) => {
+    .addCase(loadComments, (state, action) => {
       state.comments = action.payload;
     })
     .addCase(dropOffer, (state) => {

@@ -79,3 +79,11 @@ export const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyrigh
 
 export const MAX_COMMENT_COUNT = 10;
 
+export enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+  Favorites = '/favorite',
+  NotFound = '/404',
+  Comments = '/comments',
+}
