@@ -12,15 +12,19 @@ import ScrollToTop from '../scroll-to-top/scroll-to.top';
 //import { fetchFavorites } from '../../store/action';
 import { AuthorizationStatus, AppRoute } from '../../const';
 //import { useEffect } from 'react';
+import { useAppSelector } from '../../hooks';
+import Loading from '../../pages/loading-page/loading-page';
 
 
 function App() {
-  //const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
-  /*useEffect(() => {
-    dispatch(fetchFavorites());
-  }, [dispatch]);
-*/
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return (
+      <Loading />
+    );
+  }
 
   return (
     <HelmetProvider>
@@ -34,7 +38,9 @@ function App() {
           <Route
             path={AppRoute.Favorites}
             element={
-              < PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              < PrivateRoute
+                authorizationStatus={authorizationStatus}
+              >
                 <FavoritesPage />
               </PrivateRoute>
             }
