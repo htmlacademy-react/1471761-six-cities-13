@@ -18,6 +18,7 @@ import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { TAuthData } from '../types/auth-data';
 import { TComment, TUser } from '../types/comments.js';
+import { TUserData } from '../types/user-data.js';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -96,7 +97,7 @@ export const loginAction = createAsyncThunk<void, TAuthData, {
 }>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: { token } } = await api.post<TUser>(APIRoute.Login, { email, password });
+    const { data: { token } } = await api.post<TUserData>(APIRoute.Login, { email, password });
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
   },
