@@ -20,7 +20,7 @@ import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { TAuthData } from '../types/auth-data';
 import { TComment, TUser } from '../types/comments.js';
 import { TUserData } from '../types/user-data.js';
-import { store } from './.'
+import { store } from './.';
 
 export const clearErrorAction = createAsyncThunk(
   'offer/clearError',
