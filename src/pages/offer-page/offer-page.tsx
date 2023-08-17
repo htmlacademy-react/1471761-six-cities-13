@@ -8,8 +8,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getPercent } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
-import { fetchNearPlacesOffers, fetchOffer, dropOffer } from '../../store/action';
-import NotFoundPage from '../not-found-page/not-found-page';
+import { dropOffer } from '../../store/action';
+//import NotFoundPage from '../not-found-page/not-found-page';
+import Loading from '../loading-page/loading-page';
+import { fetchCommentsOfferAction, fetchNearPlacesOfferAction, fetchOfferAction } from '../../store/api-action';
 
 
 function OfferPage() {
@@ -19,8 +21,9 @@ function OfferPage() {
 
   useEffect(() => {
     if (offerId) {
-      dispatch(fetchOffer(offerId));
-      dispatch(fetchNearPlacesOffers(offerId));
+      dispatch(fetchOfferAction(offerId));
+      dispatch(fetchNearPlacesOfferAction(offerId));
+      dispatch(fetchCommentsOfferAction(offerId));
     }
 
     return () => {
@@ -29,21 +32,29 @@ function OfferPage() {
   }, [offerId, dispatch]);
 
 
-  const offers = useAppSelector((state) => state.fullOffers);
-  const currentOffer = offers.find((offer) => offer.id === offerId);
+  const currentOffer = useAppSelector((state) => state.offer);
+  //const currentOffer = offers.find((offer) => offer.id === offerId);
   const comments = useAppSelector((state) => state.comments);
+  const isCommentsDataLoading = useAppSelector((state) => state.isCommentsDataLoading);
+  const isFullOfferLoading = useAppSelector((state) => state.isFullOfferDataLoading);
 
-  const nearPlacesOffers = offers.filter((offer) =>
-    currentOffer?.city.name === offer.city.name).filter((offer) => offer.id !== offerId).slice(0, 3);
+  const isNearPlaceOfferLoading = useAppSelector((state) => state.isNearPlaceOfferLoading);
+  const nearPlaceOffersList = useAppSelector((state) => state.nearPlaceOffers);
+  const nearPlaceOffers = nearPlaceOffersList?.slice(0, 3);
 
-  const mapOffers = [...nearPlacesOffers, currentOffer];
-  const { avatarUrl, name, isPro } = currentOffer.host;
-
-
-  if (!currentOffer) {
-    return <NotFoundPage />;
+  if (currentOffer === null || isFullOfferLoading || isNearPlaceOfferLoading || isCommentsDataLoading) {
+    return (
+      <Loading />
+    );
   }
 
+  //if (currentOffer.city.name === offer.city.name).filter((offer) => offer.id !== offerId).slice(0, 3);
+
+  //const mapOffers = [...nearPlacesOffers, currentOffer];
+  //const { avatarUrl, name, isPro } = currentOffer.host;
+
+
+  const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
   const { images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
 
   return (
@@ -122,9 +133,7 @@ function OfferPage() {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {goods.map((item: string) => (
-                    <li className="offer__inside-item" key={item}>{item}</li>
-                  ))}
+                  {currentOffer.goods.map((good) => (<li className="offer__inside-item" key={good}>{good}</li>))}
                 </ul>
               </div>
               <div className="offer__host">
@@ -133,14 +142,14 @@ function OfferPage() {
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="offer__avatar user__avatar"
-                      src={avatarUrl}
+                      src={currentOffer.host.avatarUrl}
                       width={74}
                       height={74}
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">{name}</span>
-                  {isPro && (
+                  <span className="offer__user-name">{currentOffer.host.name}</span>
+                  {currentOffer.host.isPro && (
                     <span className="offer__user-status">
                       Pro
                     </span>
@@ -151,7 +160,7 @@ function OfferPage() {
                     </p>
                     <section className="offer__reviews reviews">
                       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-                      {offerId && <ReviewList comments={comments} />}
+                      {comments && <ReviewList comments={comments} />}
                       <ReviewForm />
                     </section>
                   </div>
@@ -160,7 +169,7 @@ function OfferPage() {
                 <section className="offer__map map">
                   <Map
                     cardType={'offer'}
-                    city={nearPlacesOffers[0]?.city}
+                    city={nearPlaceOffers[0].city}
                     offers={mapOffers}
                     currentOffer={currentOffer}
                   />

@@ -3,6 +3,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { TOffer, TFullOffer } from '../types/offers.js';
 
+import { saveToken, dropToken } from '../services/token';
+import { AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { TAuthData } from '../types/auth-data';
+import { TComment } from '../types/comments.js';
+import { TUserData } from '../types/user-data.js';
+import { store } from './.';
+import { APIRoute } from '../const';
+
 import {
   fetchOffer,
   fetchOffers,
@@ -12,15 +20,12 @@ import {
   setFullOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
   requireAuthorization,
-  setError
+  setError,
+  setNearPlacesOffersLoading,
+  setOffersNearPlacesLoading,
+  redirectToRoute,
+  checkAuthInfo
 } from './action';
-
-import { saveToken, dropToken } from '../services/token';
-import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
-import { TAuthData } from '../types/auth-data';
-import { TComment, TUser } from '../types/comments.js';
-import { TUserData } from '../types/user-data.js';
-import { store } from './.';
 
 export const clearErrorAction = createAsyncThunk(
   'offer/clearError',
@@ -54,10 +59,36 @@ export const fetchOfferAction = createAsyncThunk<void, string, {
 }>(
   'OFFER/fetch',
   async (offerId, { dispatch, extra: api }) => {
-    dispatch(setFullOfferDataLoadingStatus(true));
-    const { data } = await api.get<TFullOffer>(`${APIRoute.Offers}/${offerId}`);
-    dispatch(setFullOfferDataLoadingStatus(false));
-    dispatch(fetchOffer(data));
+    try {
+      dispatch(setFullOfferDataLoadingStatus(true));
+      const { data } = await api.get<TFullOffer>(`${APIRoute.Offers}/${offerId}`);
+      dispatch(setFullOfferDataLoadingStatus(false));
+      dispatch(fetchOffer(data));
+    } catch {
+      dispatch(setFullOfferDataLoadingStatus(true));
+      dispatch(redirectToRoute(APIRoute.NotFound));
+      dispatch(setFullOfferDataLoadingStatus(false));
+    }
+  }
+);
+
+export const fetchNearPlacesOfferAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'NEARPLACES/fetch',
+  async (offerId, { dispatch, extra: api }) => {
+    try {
+      dispatch(setNearPlacesOffersLoading(true));
+      const { data } = await api.get<TOffer[]>(`${APIRoute.Offers}/${offerId}/nearby`);
+      dispatch(setNearPlacesOffersLoading(false));
+      dispatch(fetchNearPlacesOfferAction(data));
+    } catch {
+      dispatch(setOffersNearPlacesLoading(true));
+      dispatch(redirectToRoute(APIRoute.NotFound));
+      dispatch(setOffersNearPlacesLoading(false));
+    }
   },
 );
 
@@ -68,11 +99,17 @@ export const fetchCommentsOfferAction = createAsyncThunk<void, string, {
 }>(
   'REVIEWS/fetch',
   async (offerId, { dispatch, extra: api }) => {
-    dispatch(setCommentsDataLoadingStatus(true));
-    const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${offerId}`);
-    dispatch(setCommentsDataLoadingStatus(false));
-    dispatch(loadComments(data));
-  },
+    try {
+      dispatch(setCommentsDataLoadingStatus(true));
+      const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${offerId}`);
+      dispatch(setCommentsDataLoadingStatus(false));
+      dispatch(loadComments(data));
+    } catch {
+      dispatch(setCommentsDataLoadingStatus(true));
+      dispatch(redirectToRoute(APIRoute.NotFound));
+      dispatch(setCommentsDataLoadingStatus(false));
+    }
+  }
 );
 
 export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
@@ -82,9 +119,13 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
 }>(
   'FAVORITES/fetch',
   async (_arg, { dispatch, extra: api }) => {
-    const { data } = await api.get<TOffer[]>(APIRoute.Favorites);
-    dispatch(fetchFavorites(data));
-  },
+    try {
+      const { data } = await api.get<TOffer[]>(APIRoute.Favorites);
+      dispatch(fetchFavorites(data));
+    } catch {
+      throw new Error();
+    }
+  }
 );
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
@@ -95,8 +136,9 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      await api.get<TUser>(APIRoute.Login);
+      const { data } = await api.get<TUserData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(checkAuthInfo(data));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -110,9 +152,12 @@ export const loginAction = createAsyncThunk<void, TAuthData, {
 }>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: { token } } = await api.post<TUserData>(APIRoute.Login, { email, password });
-    saveToken(token);
+    const { data } = await api.post<TUserData>(APIRoute.Login, { email, password });
+    saveToken(data.token);
+    dispatch(checkAuthInfo(data));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(APIRoute.Login));
+    dispatch(fetchFavoritesAction());
   },
 );
 
@@ -125,6 +170,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
+    dispatch(checkAuthInfo(null));
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );

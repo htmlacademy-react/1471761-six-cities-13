@@ -1,6 +1,7 @@
 import { HelmetProvider } from 'react-helmet-async';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
-
+import { Route, Routes } from 'react-router-dom';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -28,7 +29,7 @@ function App() {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <ScrollToTop />
         <Routes>
           <Route
@@ -56,7 +57,7 @@ function App() {
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
