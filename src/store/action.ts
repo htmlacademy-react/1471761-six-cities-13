@@ -24,3 +24,5 @@ export const setFullOfferDataLoadingStatus = createAction<boolean>('data/setFull
 export const setCommentsDataLoadingStatus = createAction<boolean>('data/setCommentsDataLoadingStatus');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+
+export const setError = createAction<string | null>('offer/setError');

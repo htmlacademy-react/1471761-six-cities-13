@@ -16,6 +16,7 @@ import {
   setOffersDataLoadingStatus,
   setCommentsDataLoadingStatus,
   requireAuthorization,
+  setError,
 } from './action';
 
 
@@ -36,6 +37,7 @@ const initialState: {
   isFullOfferDataLoading: boolean;
   isCommentsDataLoading: boolean;
   authorizationStatus: AuthorizationStatus;
+  error: string | null;
 } = {
   offer: null,
   offers: [],
@@ -48,6 +50,7 @@ const initialState: {
   isFullOfferDataLoading: false,
   isCommentsDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 
@@ -86,6 +89,9 @@ const reducer = createReducer(initialState, (builder) =>
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     })
 );
 
