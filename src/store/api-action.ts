@@ -11,14 +11,27 @@ import {
   setCommentsDataLoadingStatus,
   setFullOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
-  requireAuthorization
+  requireAuthorization,
+  setError
 } from './action';
 
 import { saveToken, dropToken } from '../services/token';
-import { APIRoute, AuthorizationStatus } from '../const';
+import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { TAuthData } from '../types/auth-data';
 import { TComment, TUser } from '../types/comments.js';
 import { TUserData } from '../types/user-data.js';
+import { store } from './.'
+
+export const clearErrorAction = createAsyncThunk(
+  'offer/clearError',
+  () => {
+    setTimeout(
+      () => store.dispatch(setError(null)),
+      TIMEOUT_SHOW_ERROR,
+    );
+  },
+);
+
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
