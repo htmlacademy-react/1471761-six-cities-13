@@ -4,7 +4,7 @@ import { AppDispatch, State } from '../types/state.js';
 import { TOffer, TFullOffer } from '../types/offers.js';
 
 import { saveToken, dropToken } from '../services/token';
-import { AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { TAuthData } from '../types/auth-data';
 import { TComment } from '../types/comments.js';
 import { TUserData } from '../types/user-data.js';
@@ -24,7 +24,8 @@ import {
   setNearPlacesOffersLoading,
   setOffersNearPlacesLoading,
   redirectToRoute,
-  checkAuthInfo
+  checkAuthInfo,
+  fetchNearPlacesOffers
 } from './action';
 
 export const clearErrorAction = createAsyncThunk(
@@ -81,9 +82,9 @@ export const fetchNearPlacesOfferAction = createAsyncThunk<void, string, {
   async (offerId, { dispatch, extra: api }) => {
     try {
       dispatch(setNearPlacesOffersLoading(true));
-      const { data } = await api.get<TOffer[]>(`${APIRoute.Offers}/${offerId}/nearby`);
+      const {data} = await api.get<TOffer[]>(`${APIRoute.Offers}/${offerId}/nearby`);
       dispatch(setNearPlacesOffersLoading(false));
-      dispatch(fetchNearPlacesOfferAction(data));
+      dispatch(fetchNearPlacesOffers(data));
     } catch {
       dispatch(setOffersNearPlacesLoading(true));
       dispatch(redirectToRoute(APIRoute.NotFound));

@@ -1,7 +1,9 @@
+import { HousingTypes } from '../const';
+
 export type TOffer = {
   id: string;
   title: string;
-  type: string;
+  type: keyof typeof HousingTypes;
   price: number;
   city: TCity;
   location: TLocation;
@@ -47,8 +49,18 @@ export type TLocation = {
   zoom: number;
 }
 
-export type THost = {
+export type TUser = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
+}
+
+export type THost = {
+  id: string;
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: TUser;
+  images: string[];
+  maxAdults: number;
 }

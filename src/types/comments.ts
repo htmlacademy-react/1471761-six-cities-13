@@ -1,3 +1,5 @@
+import { TUser } from './offers';
+
 export type TComment = {
   id: string;
   date: string;
@@ -8,10 +10,12 @@ export type TComment = {
 
 export type TComments = TComment[];
 
-export type TUser = {
+/*
+export type TUserData = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
   email: string;
   token: string;
 };
+*/

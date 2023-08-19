@@ -12,12 +12,24 @@ import { dropOffer } from '../../store/action';
 //import NotFoundPage from '../not-found-page/not-found-page';
 import Loading from '../loading-page/loading-page';
 import { fetchCommentsOfferAction, fetchNearPlacesOfferAction, fetchOfferAction } from '../../store/api-action';
-
+import classNames from 'classnames';
+//import { HousingTypes } from '../../const';
+import HostInfo from '../../components/host/host';
 
 function OfferPage() {
 
   const { offerId } = useParams();
   const dispatch = useAppDispatch();
+
+  const currentOffer = useAppSelector((state) => state.offer);
+  const isFullOfferLoading = useAppSelector((state) => state.isFullOfferDataLoading);
+
+  const comments = useAppSelector((state) => state.comments);
+  const isCommentsDataLoading = useAppSelector((state) => state.isCommentsDataLoading);
+
+  const isNearPlaceOffersLoading = useAppSelector((state) => state.isNearPlaceOffersLoading);
+  const nearPlaceOffersList = useAppSelector((state) => state.nearPlaceOffers);
+  const nearPlaceOffers = nearPlaceOffersList?.slice(0, 3);
 
   useEffect(() => {
     if (offerId) {
@@ -32,17 +44,7 @@ function OfferPage() {
   }, [offerId, dispatch]);
 
 
-  const currentOffer = useAppSelector((state) => state.offer);
-  //const currentOffer = offers.find((offer) => offer.id === offerId);
-  const comments = useAppSelector((state) => state.comments);
-  const isCommentsDataLoading = useAppSelector((state) => state.isCommentsDataLoading);
-  const isFullOfferLoading = useAppSelector((state) => state.isFullOfferDataLoading);
-
-  const isNearPlaceOfferLoading = useAppSelector((state) => state.isNearPlaceOfferLoading);
-  const nearPlaceOffersList = useAppSelector((state) => state.nearPlaceOffers);
-  const nearPlaceOffers = nearPlaceOffersList?.slice(0, 3);
-
-  if (currentOffer === null || isFullOfferLoading || isNearPlaceOfferLoading || isCommentsDataLoading) {
+  if (currentOffer === null || isFullOfferLoading || isNearPlaceOffersLoading || isCommentsDataLoading) {
     return (
       <Loading />
     );
@@ -53,9 +55,9 @@ function OfferPage() {
   //const mapOffers = [...nearPlacesOffers, currentOffer];
   //const { avatarUrl, name, isPro } = currentOffer.host;
 
-
+  const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
   const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
-  const { images, description, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
+
 
   return (
 
@@ -82,28 +84,25 @@ function OfferPage() {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {isPremium && (
-                <div className="offer__mark">
-                  <span>Premium</span>
-                </div>
-              )}
-
+              {isPremium && <div className="offer__mark">
+                <span>Premium</span>
+              </div>
+              }
+              </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
                   {title}
                 </h1>
                 <button
-                  className={isFavorite
-                    ? 'offer__bookmark-button offer__bookmark-button--active button'
-                    : 'offer__bookmark-button button'}
-                  type="button"
+                  className={classNames({ 'offer__bookmark-button--active': isFavorite }, 'offer__bookmark-button', 'button')} type="button"
                 >
                   <svg
                     className="offer__bookmark-icon"
                     width={31}
                     height={33}
                   >
-                    <use xlinkHref="#icon-bookmark" />
+                    <use xlinkHref="#icon-bookmark">
+                    </use>
                   </svg>
                   <span className="visually-hidden">
                     To bookmarks
@@ -118,12 +117,14 @@ function OfferPage() {
                 <span className="offer__rating-value rating__value">{rating}</span>
               </div>
               <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">{type}</li>
+                <li className="offer__feature offer__feature--entire">
+                  {type}
+                </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {maxAdults} adults
+                  Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
                 </li>
               </ul>
               <div className="offer__price">
@@ -133,65 +134,38 @@ function OfferPage() {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {currentOffer.goods.map((good) => (<li className="offer__inside-item" key={good}>{good}</li>))}
+                  {goods && goods.length && goods.map((good) =>
+                    <li className="offer__inside-item" key={good}>{good}</li>)}
                 </ul>
               </div>
-              <div className="offer__host">
-                <h2 className="offer__host-title">Meet the host</h2>
-                <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img
-                      className="offer__avatar user__avatar"
-                      src={currentOffer.host.avatarUrl}
-                      width={74}
-                      height={74}
-                      alt="Host avatar"
-                    />
-                  </div>
-                  <span className="offer__user-name">{currentOffer.host.name}</span>
-                  {currentOffer.host.isPro && (
-                    <span className="offer__user-status">
-                      Pro
-                    </span>
-                  )}
-                  <div className="offer__description">
-                    <p className="offer__text">
-                      {description}
-                    </p>
-                    <section className="offer__reviews reviews">
-                      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-                      {comments && <ReviewList comments={comments} />}
-                      <ReviewForm />
-                    </section>
-                  </div>
-
-                </div>
-                <section className="offer__map map">
-                  <Map
-                    cardType={'offer'}
-                    city={nearPlaceOffers[0].city}
-                    offers={mapOffers}
-                    currentOffer={currentOffer}
-                  />
-                </section>
-                <div className="container">
-                  <section className="near-places places">
-                    <h2 className="near-places__title">
-                      Other places in the neighbourhood
-                    </h2>
-                    <OffersList
-                      offers={nearPlacesOffers}
-                    />
-                  </section>
-                </div>
-
-              </div >
+              <HostInfo hostData={currentOffer} />
+              <section className="offer__reviews reviews">
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                {comments && <ReviewList comments={comments} />}
+                <ReviewForm />
+              </section>
             </div>
 
-
           </div>
-        </section>
-      </main>
+          <section className="offer__map map">
+            {nearPlaceOffers &&
+              <Map
+                cardType='offer'
+                city={nearPlaceOffers.city}
+                offers={mapOffers}
+                currentOffer={currentOffer}
+              />}
+          </section>
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">
+                Other places in the neighbourhood
+              </h2>
+              <OffersList
+                offers={nearPlaceOffers}
+              />
+            </section>
+      </main >
     </div >
   );
 }
