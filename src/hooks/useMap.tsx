@@ -6,6 +6,7 @@ import { COPYRIGHT, TILE_LAYER } from '../const';
 function useMap(mapRef: React.MutableRefObject<HTMLElement | null>, city: TCity): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
+
   const { latitude, longitude, zoom } = city.location;
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function useMap(mapRef: React.MutableRefObject<HTMLElement | null>, city: TCity)
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, latitude, longitude, zoom]);
+  }, [mapRef, latitude, longitude,zoom]);
 
   return map;
 }

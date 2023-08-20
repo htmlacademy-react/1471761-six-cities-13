@@ -10,14 +10,6 @@ type CardProp = {
   onMouseLeave?: () => void;
 }
 
-/*const housingTypes = {
-  hotel: 'Hotel',
-  apartment: 'Apartment',
-  room: 'Private Room',
-  house: 'House',
-} as const; */
-
-
 function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
   const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = offer;
 

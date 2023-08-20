@@ -1,7 +1,10 @@
+import { HousingTypes } from '../const';
+import { TUser } from './review';
+
 export type TOffer = {
   id: string;
   title: string;
-  type: string;
+  type: keyof typeof HousingTypes;
   price: number;
   city: TCity;
   location: TLocation;
@@ -11,13 +14,10 @@ export type TOffer = {
   previewImage: string;
 }
 
-export type TOffers = TOffer[];
-
-
 export type TFullOffer = {
   id: string;
   title: string;
-  type: string;
+  type: keyof typeof HousingTypes;
   price: number;
   city: TCity;
   location: TLocation;
@@ -34,7 +34,6 @@ export type TFullOffer = {
 
 };
 
-export type TFullOffers = TFullOffer[];
 
 export type TCity = {
   name: string;
@@ -48,7 +47,11 @@ export type TLocation = {
 }
 
 export type THost = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
+  id: string;
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: TUser;
+  images: string[];
+  maxAdults: number;
 }

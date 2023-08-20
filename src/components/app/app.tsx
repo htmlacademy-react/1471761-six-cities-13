@@ -1,6 +1,7 @@
 import { HelmetProvider } from 'react-helmet-async';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
-
+import { Route, Routes } from 'react-router-dom';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -8,22 +9,27 @@ import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to.top';
-import { useAppDispatch } from '../../hooks';
-import { fetchFavorites } from '../../store/action';
+//import { useAppDispatch } from '../../hooks';
+//import { fetchFavorites } from '../../store/action';
 import { AuthorizationStatus, AppRoute } from '../../const';
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
+import { useAppSelector } from '../../hooks';
+import Loading from '../../pages/loading-page/loading-page';
 
 
 function App() {
-  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
-  useEffect(() => {
-    dispatch(fetchFavorites());
-  }, [dispatch]);
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return (
+      <Loading />
+    );
+  }
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <ScrollToTop />
         <Routes>
           <Route
@@ -33,7 +39,9 @@ function App() {
           <Route
             path={AppRoute.Favorites}
             element={
-              < PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              < PrivateRoute
+                authorizationStatus={authorizationStatus}
+              >
                 <FavoritesPage />
               </PrivateRoute>
             }
@@ -49,7 +57,7 @@ function App() {
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

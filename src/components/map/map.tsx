@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useRef, useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
@@ -7,11 +5,13 @@ import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import { TCity, TFullOffer, TOffer } from '../../types/offers';
 import classNames from 'classnames';
+//import { HousingTypes } from '../../const';
 
 type MapProps = {
   city: TCity;
   offers?: TOffer[] | TFullOffer[];
-  selectedOffer: string | null;
+  selectedOffer?: string | null;
+  currentOffer?: TFullOffer;
   cardType: 'cities' | 'offer';
 }
 
@@ -21,14 +21,14 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-const currentCustomIcon = new Icon({
+const activeCustomIcon = new Icon({
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
 
-function Map({ city, offers, cardType, selectedOffer }: MapProps): JSX.Element {
+function Map({ city, offers, cardType, selectedOffer, currentOffer }: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -36,27 +36,37 @@ function Map({ city, offers, cardType, selectedOffer }: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
-      const markerLayer = layerGroup().addTo(map);
-      offers?.forEach((offer) => {
+      const { latitude, longitude, zoom } = city.location;
+      map.setView([latitude, longitude], zoom);
 
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
+      const markerLayer = layerGroup().addTo(map);
+
+      offers?.forEach((offer) => {
+        const { location, title, type, id, price, previewImage } = offer;
+        //const typeOfAllocation = HousingTypes[type];
+
+        const marker = new Marker([
+          location.latitude,
+          location.longitude,
+        ], {
+          title: title
         });
 
         marker
           .setIcon(
-            selectedOffer !== undefined && offer.id === selectedOffer
-              ? currentCustomIcon
+            selectedOffer === id || currentOffer?.id === id
+              ? activeCustomIcon
               : defaultCustomIcon
-          ).addTo(markerLayer);
+          )
+          .addTo(markerLayer)
+          .bindPopup(`<img src=${previewImage}> <h3>${title}</h3> <h1>&euro; ${price}</h1> <p>${type}</p>`);
       });
 
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer, city, currentOffer]);
 
   return (
     <section

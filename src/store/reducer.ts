@@ -1,65 +1,94 @@
-import { createReducer } from '@reduxjs/toolkit/dist/createReducer';
-import { TFullOffer } from '../types/offers';
+
+import { createReducer } from '@reduxjs/toolkit';
+import { TFullOffer, TOffer } from '../types/offers';
 import { TComment } from '../types/comments';
-import { CITIES } from '../const';
+import { AuthorizationStatus, CITIES } from '../const';
 
 import {
+  fetchOffer,
   fetchOffers,
-  fetchNearPlacesOffers,
-  fetchComments,
+  fetchNearPlaceOffers,
+  loadComments,
   dropOffer,
   setActiveCity,
   fetchFavorites,
+  setFullOfferDataLoadingStatus,
+  setOffersDataLoadingStatus,
+  setCommentsDataLoadingStatus,
+  requireAuthorization,
+  setError,
 } from './action';
 
-
-import { commentsMocks } from '../mocks/reviews';
-import { fullOffersMocks } from '../mocks/fullOffer';
 
 const DEFAULT_CITY = CITIES[0];
 
 const initialState: {
-
-  fullOffers: TFullOffer[];
-  nearPlacesOffers: TFullOffer[];
-  comments: TComment[];
   offer: TFullOffer | null;
-  favorites: TFullOffer[];
+  offers: TOffer[];
+  nearPlaceOffers: TOffer[] | null;
+  comments: TComment[] | null;
+  favorites: TOffer[];
   activeCity: string;
+  isOffersDataLoading: boolean;
+  isFullOfferDataLoading: boolean;
+  isCommentsDataLoading: boolean;
+  isNearPlaceOffersLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+  error: string | null;
 } = {
-
-  fullOffers: fullOffersMocks,
-  nearPlacesOffers: [],
-  comments: [],
   offer: null,
+  offers: [],
+  nearPlaceOffers: [],
+  comments: [],
   favorites: [],
-  activeCity: DEFAULT_CITY
+  activeCity: DEFAULT_CITY,
+  isOffersDataLoading: false,
+  isFullOfferDataLoading: false,
+  isCommentsDataLoading: false,
+  isNearPlaceOffersLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 
 const reducer = createReducer(initialState, (builder) =>
   builder
-    .addCase(fetchOffers, (state) => {
-      state.fullOffers = fullOffersMocks;
-    })
     .addCase(fetchOffers, (state, action) => {
-      state.offer = fullOffersMocks.find((offer) => offer.id === action.payload) ?? null;
+      state.offers = action.payload;
     })
-    .addCase(fetchNearPlacesOffers, (state, action) => {
-      state.nearPlacesOffers = state.fullOffers.filter((item) => state.activeCity === item.city.name).filter((offer) => offer.id !== action.payload).slice(0, 3);
+    .addCase(fetchOffer, (state, action) => {
+      state.offer = action.payload;
     })
-    .addCase(fetchComments, (state) => {
-      state.comments = commentsMocks;
+    .addCase(fetchNearPlaceOffers, (state, action) => {
+      state.nearPlaceOffers = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(dropOffer, (state) => {
       state.offer = null;
-      state.nearPlacesOffers = [];
+      state.nearPlaceOffers = [];
     })
     .addCase(setActiveCity, (state, action) => {
       state.activeCity = action.payload;
     })
-    .addCase(fetchFavorites, (state) => {
-      state.favorites = state.fullOffers.filter((offer) => offer.isFavorite);
+    .addCase(fetchFavorites, (state, action) => {
+      state.favorites = action.payload;
+    })
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isOffersDataLoading = action.payload;
+    })
+    .addCase(setFullOfferDataLoadingStatus, (state, action) => {
+      state.isFullOfferDataLoading = action.payload;
+    })
+    .addCase(setCommentsDataLoadingStatus, (state, action) => {
+      state.isCommentsDataLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     })
 );
 

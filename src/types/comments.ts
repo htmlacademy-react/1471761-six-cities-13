@@ -1,17 +1,6 @@
+
 export type TComment = {
-  id: string;
-  date: string;
-  user: TUser;
+  offerId: string;
   comment: string;
   rating: number;
 }
-
-export type TComments = TComment[];
-
-export type TUser = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-  email: string;
-  token: string;
-};
