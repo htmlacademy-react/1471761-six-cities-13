@@ -8,6 +8,7 @@ import Sorting from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
 import { sortingOffersByType } from '../../utils/utils';
 
+
 function MainPage() {
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
   const [activeSorting, setActiveSorting] = useState<TSorting>('Popular');

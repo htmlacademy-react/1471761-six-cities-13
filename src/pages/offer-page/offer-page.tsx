@@ -14,6 +14,7 @@ import classNames from 'classnames';
 import HostInfo from '../../components/host/host';
 import { HousingTypes } from '../../const';
 
+
 function OfferPage() {
 
   const { offerId } = useParams();

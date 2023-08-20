@@ -1,6 +1,5 @@
 import { useState, KeyboardEvent } from 'react';
 import classNames from 'classnames';
-//import { useAppDispatch } from '../../hooks';
 import { TSorting } from '../../types/sorting';
 import { SortOffersType } from '../../const';
 
@@ -41,7 +40,7 @@ function Sorting({ activeSorting, onChange }: SortingProps) {
       method="get"
       onKeyDown={handleKeydown}
     >
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">Sort by&nbsp;</span>
       <span
         className="places__sorting-type"
         tabIndex={0}
