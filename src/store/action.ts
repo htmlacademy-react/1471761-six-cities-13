@@ -30,7 +30,7 @@ export const setError = createAction<string | null>('offer/setError');
 
 export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
 
-export const checkAuthInfo = createAction('USER/setUserInfo', (userInfo: TUserData | null) => ({payload: userInfo }));
+export const setAuthInfo = createAction('USER/setUserInfo', (userInfo: TUserData | null) => ({payload: userInfo }));
 
 export const setNearPlaceOffersLoading = createAction<boolean>('DATA/setOffersNeighbouhoodError');
 

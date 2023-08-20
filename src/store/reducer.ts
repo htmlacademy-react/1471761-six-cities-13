@@ -17,7 +17,9 @@ import {
   setCommentsDataLoadingStatus,
   requireAuthorization,
   setError,
+  setAuthInfo,
 } from './action';
+import { TUserData } from '../types/user-data';
 
 
 const DEFAULT_CITY = CITIES[0];
@@ -27,6 +29,7 @@ const initialState: {
   offers: TOffer[];
   nearPlaceOffers: TOffer[] | null;
   comments: TComment[] | null;
+  userData: TUserData | null;
   favorites: TOffer[];
   activeCity: string;
   isOffersDataLoading: boolean;
@@ -40,6 +43,7 @@ const initialState: {
   offers: [],
   nearPlaceOffers: [],
   comments: [],
+  userData: null,
   favorites: [],
   activeCity: DEFAULT_CITY,
   isOffersDataLoading: false,
@@ -86,6 +90,9 @@ const reducer = createReducer(initialState, (builder) =>
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setAuthInfo, (state, action) => {
+      state.userData = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

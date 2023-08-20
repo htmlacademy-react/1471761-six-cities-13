@@ -23,7 +23,7 @@ import {
   setError,
   setNearPlaceOffersLoading,
   redirectToRoute,
-  checkAuthInfo,
+  setAuthInfo,
   fetchNearPlaceOffers
 } from './action';
 
@@ -138,7 +138,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     try {
       const {data} = await api.get<TUserData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      dispatch(checkAuthInfo(data));
+      dispatch(setAuthInfo(data));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -154,7 +154,7 @@ export const loginAction = createAsyncThunk<void, TAuthData, {
   async ({ login: email, password }, { dispatch, extra: api }) => {
     const { data } = await api.post<TUserData>(APIRoute.Login, { email, password });
     saveToken(data.token);
-    dispatch(checkAuthInfo(data));
+    dispatch(setAuthInfo(data));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(APIRoute.Login));
     dispatch(fetchFavoritesAction());
@@ -170,7 +170,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(checkAuthInfo(null));
+    dispatch(setAuthInfo(null));
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );
