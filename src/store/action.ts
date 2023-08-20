@@ -13,7 +13,7 @@ export const fetchOffer = createAction<TFullOffer>('OFFER/fetch');
 
 export const loadComments = createAction('COMMENTS/fetch', (comments: TComment[] | null) => ({ payload: comments }));
 
-export const fetchNearPlacesOffers = createAction('NEARPLACESOFFER/fetch', (nearPlacesOffers: TOffer[] | null) => ({ payload: nearPlacesOffers }));
+export const fetchNearPlaceOffers = createAction('NEARPLACESOFFER/fetch', (nearPlaceOffers: TOffer[] | null) => ({ payload: nearPlaceOffers }));
 
 export const dropOffer = createAction('OFFER/drop');
 
@@ -30,10 +30,8 @@ export const setError = createAction<string | null>('offer/setError');
 
 export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
 
-export const setOffersNearPlacesLoading = createAction<boolean>('DATA/setOffersNeighbouhoodError');
+export const checkAuthInfo = createAction('USER/setUserInfo', (userInfo: TUserData | null) => ({payload: userInfo }));
 
-export const checkAuthInfo = createAction('USER/setUserInfo', (userInfo: TUserData | null) => ({ payload: userInfo }));
-
-export const setNearPlacesOffersLoading = createAction<boolean>('DATA/setOffersNeighbouhoodError');
+export const setNearPlaceOffersLoading = createAction<boolean>('DATA/setOffersNeighbouhoodError');
 
 export const redirectToRoute = createAction<APIRoute>('offer/redirectToRoute');

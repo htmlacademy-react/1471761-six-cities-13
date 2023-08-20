@@ -21,11 +21,10 @@ import {
   setOffersDataLoadingStatus,
   requireAuthorization,
   setError,
-  setNearPlacesOffersLoading,
-  setOffersNearPlacesLoading,
+  setNearPlaceOffersLoading,
   redirectToRoute,
   checkAuthInfo,
-  fetchNearPlacesOffers
+  fetchNearPlaceOffers
 } from './action';
 
 export const clearErrorAction = createAsyncThunk(
@@ -73,7 +72,7 @@ export const fetchOfferAction = createAsyncThunk<void, string, {
   }
 );
 
-export const fetchNearPlacesOfferAction = createAsyncThunk<void, string, {
+export const fetchNearPlaceOfferAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -81,14 +80,14 @@ export const fetchNearPlacesOfferAction = createAsyncThunk<void, string, {
   'NEARPLACES/fetch',
   async (offerId, { dispatch, extra: api }) => {
     try {
-      dispatch(setNearPlacesOffersLoading(true));
+      dispatch(setNearPlaceOffersLoading(true));
       const {data} = await api.get<TOffer[]>(`${APIRoute.Offers}/${offerId}/nearby`);
-      dispatch(setNearPlacesOffersLoading(false));
-      dispatch(fetchNearPlacesOffers(data));
+      dispatch(setNearPlaceOffersLoading(false));
+      dispatch(fetchNearPlaceOffers(data));
     } catch {
-      dispatch(setOffersNearPlacesLoading(true));
+      dispatch(setNearPlaceOffersLoading(true));
       dispatch(redirectToRoute(APIRoute.NotFound));
-      dispatch(setOffersNearPlacesLoading(false));
+      dispatch(setNearPlaceOffersLoading(false));
     }
   },
 );
@@ -137,7 +136,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<TUserData>(APIRoute.Login);
+      const {data} = await api.get<TUserData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
       dispatch(checkAuthInfo(data));
     } catch {

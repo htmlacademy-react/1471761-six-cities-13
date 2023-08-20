@@ -32,7 +32,6 @@ export const createAPI = (): AxiosInstance => {
       const token = getToken();
 
       if (token && config.headers) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         config.headers['x-token'] = token;
       }
 

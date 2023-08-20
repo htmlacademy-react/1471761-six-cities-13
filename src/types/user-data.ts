@@ -1,4 +1,4 @@
-import { TUser } from './offers';
+import { TUser } from './review';
 
 export type TUserData = {
   id: number;

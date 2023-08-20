@@ -3,7 +3,6 @@ import { Header } from '../../components/header/header';
 import Map from '../../components/map/map';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
-//import { fetchOffers } from '../../store/action';
 import Tabs from '../../components/tabs/tabs';
 import Sorting from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
@@ -13,8 +12,6 @@ function MainPage() {
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
   const [activeSorting, setActiveSorting] = useState<TSorting>('Popular');
 
-  //const dispatch = useAppDispatch();
-
   const currentCity = useAppSelector((state) => state.activeCity);
   const offers = useAppSelector((state) => state.offers);
   const offersByCity = offers.filter(
@@ -23,10 +20,6 @@ function MainPage() {
   const onMouseEnter = (id: string) => setSelectedOffer(id);
   const onMouseLeave = () => setSelectedOffer(null);
   const city = offersByCity[0]?.city;
-
-  /*useEffect(() => {
-    dispatch(fetchOffers());
-  }, [dispatch]);  */
 
   return (
 

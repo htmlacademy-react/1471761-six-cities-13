@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useRef, useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';

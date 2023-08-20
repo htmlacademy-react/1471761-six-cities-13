@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import { createReducer } from '@reduxjs/toolkit';
 import { TFullOffer, TOffer } from '../types/offers';
 import { TComment } from '../types/comments';
@@ -7,7 +7,7 @@ import { AuthorizationStatus, CITIES } from '../const';
 import {
   fetchOffer,
   fetchOffers,
-  fetchNearPlacesOffers,
+  fetchNearPlaceOffers,
   loadComments,
   dropOffer,
   setActiveCity,
@@ -20,35 +20,32 @@ import {
 } from './action';
 
 
-//import { commentsMocks } from '../mocks/reviews';
-//import { fullOffersMocks } from '../mocks/fullOffer';
-
 const DEFAULT_CITY = CITIES[0];
 
 const initialState: {
   offer: TFullOffer | null;
   offers: TOffer[];
-  //fullOffers: TFullOffer[];
-  nearPlacesOffers: TOffer[] | null;
+  nearPlaceOffers: TOffer[] | null;
   comments: TComment[] | null;
   favorites: TOffer[];
   activeCity: string;
   isOffersDataLoading: boolean;
   isFullOfferDataLoading: boolean;
   isCommentsDataLoading: boolean;
+  isNearPlaceOffersLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   error: string | null;
 } = {
   offer: null,
   offers: [],
-  //fullOffers: [] ,
-  nearPlacesOffers: [],
+  nearPlaceOffers: [],
   comments: [],
   favorites: [],
   activeCity: DEFAULT_CITY,
   isOffersDataLoading: false,
   isFullOfferDataLoading: false,
   isCommentsDataLoading: false,
+  isNearPlaceOffersLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
 };
@@ -62,15 +59,15 @@ const reducer = createReducer(initialState, (builder) =>
     .addCase(fetchOffer, (state, action) => {
       state.offer = action.payload;
     })
-    .addCase(fetchNearPlacesOffers, (state, action) => {
-      state.nearPlacesOffers = action.payload;
+    .addCase(fetchNearPlaceOffers, (state, action) => {
+      state.nearPlaceOffers = action.payload;
     })
     .addCase(loadComments, (state, action) => {
       state.comments = action.payload;
     })
     .addCase(dropOffer, (state) => {
       state.offer = null;
-      state.nearPlacesOffers = [];
+      state.nearPlaceOffers = [];
     })
     .addCase(setActiveCity, (state, action) => {
       state.activeCity = action.payload;
