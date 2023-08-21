@@ -4,12 +4,13 @@ import { AppDispatch, State } from '../types/state.js';
 import { TOffer, TFullOffer } from '../types/offers.js';
 
 import { saveToken, dropToken } from '../services/token';
-import { AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { AuthorizationStatus} from '../const';
 import { TAuthData } from '../types/auth-data';
 import { TComment } from '../types/comments.js';
 import { TUserData } from '../types/user-data.js';
-import { store } from './.';
+//import { store } from './.';
 import { APIRoute } from '../const';
+//import toast from 'react-toastify';
 
 import {
   fetchOffer,
@@ -20,14 +21,14 @@ import {
   setFullOfferDataLoadingStatus,
   setOffersDataLoadingStatus,
   requireAuthorization,
-  setError,
+  //setError,
   setNearPlaceOffersLoading,
   redirectToRoute,
-  checkAuthInfo,
+  setAuthInfo,
   fetchNearPlaceOffers
 } from './action';
 
-export const clearErrorAction = createAsyncThunk(
+/*export const clearErrorAction = createAsyncThunk(
   'offer/clearError',
   () => {
     setTimeout(
@@ -35,7 +36,7 @@ export const clearErrorAction = createAsyncThunk(
       TIMEOUT_SHOW_ERROR,
     );
   },
-);
+);  */
 
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -46,7 +47,7 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   'data/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
     dispatch(setOffersDataLoadingStatus(true));
-    const { data } = await api.get<TOffer[]>(APIRoute.Offers);
+    const {data} = await api.get<TOffer[]>(APIRoute.Offers);
     dispatch(setOffersDataLoadingStatus(false));
     dispatch(fetchOffers(data));
   },
@@ -61,7 +62,7 @@ export const fetchOfferAction = createAsyncThunk<void, string, {
   async (offerId, { dispatch, extra: api }) => {
     try {
       dispatch(setFullOfferDataLoadingStatus(true));
-      const { data } = await api.get<TFullOffer>(`${APIRoute.Offers}/${offerId}`);
+      const {data} = await api.get<TFullOffer>(`${APIRoute.Offers}/${offerId}`);
       dispatch(setFullOfferDataLoadingStatus(false));
       dispatch(fetchOffer(data));
     } catch {
@@ -101,7 +102,7 @@ export const fetchCommentsOfferAction = createAsyncThunk<void, string, {
   async (offerId, { dispatch, extra: api }) => {
     try {
       dispatch(setCommentsDataLoadingStatus(true));
-      const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${offerId}`);
+      const {data} = await api.get<TComment[]>(`${APIRoute.Comments}/${offerId}`);
       dispatch(setCommentsDataLoadingStatus(false));
       dispatch(loadComments(data));
     } catch {
@@ -120,13 +121,30 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
   'FAVORITES/fetch',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<TOffer[]>(APIRoute.Favorites);
+      const {data} = await api.get<TOffer[]>(APIRoute.Favorites);
       dispatch(fetchFavorites(data));
     } catch {
       throw new Error();
     }
   }
 );
+
+/*export const postReviewsOfferAction = createAsyncThunk<void, Comment, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'REVIEWS/post',
+  async ({ comment, rating, offerId }, { dispatch, extra: api }) => {
+    try {
+      const {data} = await api.post<Comment>(`${APIRoute.Comments}/${offerId}`, { comment, rating });
+      dispatch(postComment(data));
+    } catch {
+      toast.warn('Failed to post comment. Please try later');
+    }
+
+  },
+);  */
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -138,7 +156,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     try {
       const {data} = await api.get<TUserData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      dispatch(checkAuthInfo(data));
+      dispatch(setAuthInfo(data));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -154,7 +172,7 @@ export const loginAction = createAsyncThunk<void, TAuthData, {
   async ({ login: email, password }, { dispatch, extra: api }) => {
     const { data } = await api.post<TUserData>(APIRoute.Login, { email, password });
     saveToken(data.token);
-    dispatch(checkAuthInfo(data));
+    dispatch(setAuthInfo(data));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(APIRoute.Login));
     dispatch(fetchFavoritesAction());
@@ -170,7 +188,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(checkAuthInfo(null));
+    dispatch(setAuthInfo(null));
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );

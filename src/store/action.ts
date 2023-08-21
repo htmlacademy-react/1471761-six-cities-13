@@ -8,30 +8,27 @@ import { TUserData } from '../types/user-data';
 export const setActiveCity = createAction<string>('OFFERS/setActiveCity');
 
 export const fetchOffers = createAction('OFFERS/fetch', (offers: TOffer[]) => ({ payload: offers }));
+export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
 
 export const fetchOffer = createAction<TFullOffer>('OFFER/fetch');
+export const setFullOfferDataLoadingStatus = createAction<boolean>('data/setFullOfferDataLoadingStatus');
 
 export const loadComments = createAction('COMMENTS/fetch', (comments: TComment[] | null) => ({ payload: comments }));
+export const setCommentsDataLoadingStatus = createAction<boolean>('data/setCommentsDataLoadingStatus');
 
 export const fetchNearPlaceOffers = createAction('NEARPLACESOFFER/fetch', (nearPlaceOffers: TOffer[] | null) => ({ payload: nearPlaceOffers }));
+export const setNearPlaceOffersLoading = createAction<boolean>('DATA/setOffersNeighbouhoodError');
 
 export const dropOffer = createAction('OFFER/drop');
 
 export const fetchFavorites = createAction<TOffer[]>('FAVORITES/fetch');
 
-
-export const setFullOfferDataLoadingStatus = createAction<boolean>('data/setFullOfferDataLoadingStatus');
-
-export const setCommentsDataLoadingStatus = createAction<boolean>('data/setCommentsDataLoadingStatus');
-
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
-export const setError = createAction<string | null>('offer/setError');
+//export const setError = createAction<string | null>('offer/setError');
 
-export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
+export const setAuthInfo = createAction('USER/setUserInfo', (userInfo: TUserData | null) => ({payload: userInfo }));
 
-export const checkAuthInfo = createAction('USER/setUserInfo', (userInfo: TUserData | null) => ({payload: userInfo }));
-
-export const setNearPlaceOffersLoading = createAction<boolean>('DATA/setOffersNeighbouhoodError');
+export const postComment = createAction('REVIEWS/post', (newComment: Comment) => ({ payload: newComment }));
 
 export const redirectToRoute = createAction<APIRoute>('offer/redirectToRoute');

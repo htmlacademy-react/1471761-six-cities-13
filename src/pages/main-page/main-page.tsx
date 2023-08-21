@@ -8,6 +8,7 @@ import Sorting from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
 import { sortingOffersByType } from '../../utils/utils';
 
+
 function MainPage() {
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
   const [activeSorting, setActiveSorting] = useState<TSorting>('Popular');
@@ -24,7 +25,8 @@ function MainPage() {
   return (
 
     <div className="page page--gray page--main">
-      < Header />
+      < Header isUserNavigation />
+
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 

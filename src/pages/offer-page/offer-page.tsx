@@ -14,6 +14,7 @@ import classNames from 'classnames';
 import HostInfo from '../../components/host/host';
 import { HousingTypes } from '../../const';
 
+
 function OfferPage() {
 
   const { offerId } = useParams();
@@ -60,7 +61,7 @@ function OfferPage() {
       <Helmet>
         <title>Six Cities -best offers</title>
       </Helmet>
-      <Header />
+      <Header isUserNavigation />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -101,7 +102,7 @@ function OfferPage() {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: getPercent(rating) }}></span>
+                <span style={{ width: getPercent(rating)}}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">{rating}</span>

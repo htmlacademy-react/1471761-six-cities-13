@@ -1,40 +1,47 @@
 import { TComment } from '../../types/comments';
 import { getRating } from '../../utils/utils';
+import dayjs from 'dayjs';
 
 type ReviewItemProps = {
-  commentItem: TComment;
+  comment: TComment;
 };
 
-function ReviewItem({ commentItem }: ReviewItemProps): JSX.Element {
-  const { comment, date, rating, user } = commentItem;
+function ReviewItem({comment}: ReviewItemProps): JSX.Element {
+  //const { date, rating, user, id } = comment;
+
+  //const dateComment = new Date(date).toLocaleString('eng', { month: 'long', year: 'numeric' });
+  //const dateTime = date.split('T')[0];
 
   return (
-    <li className="reviews__item">
+    <li className="reviews__item" key={comment.id}>
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
             className="reviews__avatar user__avatar"
-            src={user.avatarUrl}
+            src={comment.user.avatarUrl}
             width={54}
             height={54}
             alt="Reviews avatar"
           />
         </div>
-        <span className="reviews__user-name">{user.name}</span>
+        <span className="reviews__user-name">
+          {comment.user.name}
+        </span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${getRating(rating)}%` }}></span>
+            <span style={{ width: getRating(comment.rating) }}>
+            </span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
-          {comment}
+          {comment.comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">
-          {date}
+        <time className="reviews__time" dateTime={comment.date}>{dayjs(comment.date).format('MMMM YYYY')}
         </time>
+
       </div>
     </li>
   );

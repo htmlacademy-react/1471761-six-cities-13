@@ -38,7 +38,7 @@ function FavoritesPage() {
         <title>Six Cities -your favorite offers</title>
       </Helmet>
 
-      <Header />
+      <Header isUserNavigation/>
 
       <main className="page__main page__main--favorites">
         {favoriteOffers.length ?

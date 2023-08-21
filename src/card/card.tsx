@@ -1,10 +1,11 @@
-import { AppRoute } from '../const';
-import { TOffer } from '../types/offers';
-import { Link, generatePath } from 'react-router-dom';
+import { AppRoute, HousingTypes } from '../const';
+import { TFullOffer, TOffer } from '../types/offers';
+import { Link } from 'react-router-dom';
+import { getRating } from '../utils/utils';
 
 
 type CardProp = {
-  offer: TOffer;
+  offer: TOffer | TFullOffer;
   cardType: string;
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
@@ -36,8 +37,14 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     >
       {isPremium && <PlaceCardMark />}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
-        <Link to={generatePath(AppRoute.Offer, {id: offer.id})}>
-          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
+        <Link to={`${AppRoute.Offer}/${id}`}>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={260}
+            height={200}
+            alt={title}
+          />
         </Link>
       </div>
       <div className="place-card__info">
@@ -59,16 +66,14 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${(rating * 20).toString()}%` }} />
+            <span style={{ width: getRating(rating) }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
-            {title}
-          </a>
+          <Link to={`/offer/:${offer.id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{HousingTypes[type]}</p>
       </div >
     </article >
   );

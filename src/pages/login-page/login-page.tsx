@@ -1,10 +1,10 @@
-import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import { useRef, FormEvent } from 'react';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-action';
+import { Header } from '../../components/header/header';
 
 
 function LoginPage() {
@@ -31,15 +31,8 @@ function LoginPage() {
       <Helmet>
         <title>Six Cities -login page</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
+
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">

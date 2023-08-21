@@ -16,8 +16,11 @@ import {
   setOffersDataLoadingStatus,
   setCommentsDataLoadingStatus,
   requireAuthorization,
-  setError,
+  setNearPlaceOffersLoading,
+  //setError,
+  setAuthInfo,
 } from './action';
+import { TUserData } from '../types/user-data';
 
 
 const DEFAULT_CITY = CITIES[0];
@@ -27,6 +30,7 @@ const initialState: {
   offers: TOffer[];
   nearPlaceOffers: TOffer[] | null;
   comments: TComment[] | null;
+  userData: TUserData | null;
   favorites: TOffer[];
   activeCity: string;
   isOffersDataLoading: boolean;
@@ -34,12 +38,13 @@ const initialState: {
   isCommentsDataLoading: boolean;
   isNearPlaceOffersLoading: boolean;
   authorizationStatus: AuthorizationStatus;
-  error: string | null;
+  //error: string | null;
 } = {
   offer: null,
   offers: [],
   nearPlaceOffers: [],
   comments: [],
+  userData: null,
   favorites: [],
   activeCity: DEFAULT_CITY,
   isOffersDataLoading: false,
@@ -47,7 +52,7 @@ const initialState: {
   isCommentsDataLoading: false,
   isNearPlaceOffersLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  error: null,
+  //error: null,
 };
 
 
@@ -61,6 +66,9 @@ const reducer = createReducer(initialState, (builder) =>
     })
     .addCase(fetchNearPlaceOffers, (state, action) => {
       state.nearPlaceOffers = action.payload;
+    })
+    .addCase(setNearPlaceOffersLoading, (state, action) => {
+      state.isNearPlaceOffersLoading = action.payload;
     })
     .addCase(loadComments, (state, action) => {
       state.comments = action.payload;
@@ -87,9 +95,12 @@ const reducer = createReducer(initialState, (builder) =>
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
+    .addCase(setAuthInfo, (state, action) => {
+      state.userData = action.payload;
     })
+/*.addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })  */
 );
 
 export { reducer };
