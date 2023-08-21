@@ -13,6 +13,7 @@ import { fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction }
 import classNames from 'classnames';
 import HostInfo from '../../components/host/host';
 import { HousingTypes } from '../../const';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 
 function OfferPage() {
@@ -28,8 +29,9 @@ function OfferPage() {
 
   const isNearPlaceOffersLoading = useAppSelector((state) => state.isNearPlaceOffersLoading);
   const nearPlaceOffersList = useAppSelector((state) => state.nearPlaceOffers);
-  const nearPlaceOffers = nearPlaceOffersList?.slice(0, 3);
 
+  const nearPlaceOffers = nearPlaceOffersList?.slice(0, 3);
+  const currentComments = comments?.slice(-10);
 
   useEffect(() => {
     if (offerId) {
@@ -54,6 +56,9 @@ function OfferPage() {
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
   const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
 
+  if (!currentOffer) {
+    return <NotFoundPage />;
+  }
 
   return (
 
@@ -130,7 +135,7 @@ function OfferPage() {
               </ul>
             </div>
             <HostInfo hostData={currentOffer} />
-            {offerId && <ReviewList comments={comments} />}
+            {currentComments && <ReviewList comments={currentComments} />}
           </div>
 
         </section>

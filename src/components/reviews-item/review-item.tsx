@@ -7,10 +7,6 @@ type ReviewItemProps = {
 };
 
 function ReviewItem({comment}: ReviewItemProps): JSX.Element {
-  //const { date, rating, user, id } = comment;
-
-  //const dateComment = new Date(date).toLocaleString('eng', { month: 'long', year: 'numeric' });
-  //const dateTime = date.split('T')[0];
 
   return (
     <li className="reviews__item" key={comment.id}>
