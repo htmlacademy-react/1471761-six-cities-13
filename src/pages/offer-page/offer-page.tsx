@@ -61,7 +61,7 @@ function OfferPage() {
       <Helmet>
         <title>Six Cities -best offers</title>
       </Helmet>
-      <Header />
+      <Header isUserNavigation />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">

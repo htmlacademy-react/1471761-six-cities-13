@@ -5,13 +5,13 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 
 
 function UserNavigation(): JSX.Element {
+  const dispatch = useAppDispatch();
 
   const userStatus = useAppSelector((state) => state.authorizationStatus);
   const isLoggedIn = userStatus === AuthorizationStatus.Auth;
-  const dispatch = useAppDispatch();
 
   const userData = useAppSelector((state) => state.userData);
-  const favorites = useAppSelector((state) => state.favorites);
+  //const favorites = useAppSelector((state) => state.favorites);
 
 
   return (
@@ -32,7 +32,9 @@ function UserNavigation(): JSX.Element {
 
               </div>
               <span className="header__user-name user__name">{userData?.email}</span>
-              {favorites.length > 0 && <span className="header__favorite-count">{favorites.length}</span>}
+              <span className="header__favorite-count">
+                3
+              </span>
             </Link>
           </li>
           <li className="header__nav-item">
