@@ -5,15 +5,14 @@ type TReviewsProps = {
   comments: TComment[];
 };
 
-export function ReviewList({ comments }: TReviewsProps): JSX.Element {
-
+export function ReviewList({comments}: TReviewsProps): JSX.Element {
   return (
 
     <ul className="reviews__list">
       {comments.map((comment) => (
         <ReviewItem
           key={comment.id}
-          commentItem={comment}
+          comment={comment}
         />
       ))}
     </ul>

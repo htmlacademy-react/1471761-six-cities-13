@@ -1,5 +1,5 @@
 import { HousingTypes } from '../const';
-import { TUser } from './review';
+import { TUser } from './comments';
 
 export type TOffer = {
   id: string;

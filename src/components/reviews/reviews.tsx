@@ -1,5 +1,5 @@
 
-function Reviews(): JSX.Element {
+/*function Reviews(): JSX.Element {
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
@@ -149,3 +149,4 @@ function Reviews(): JSX.Element {
 }
 
 export default Reviews;
+*/

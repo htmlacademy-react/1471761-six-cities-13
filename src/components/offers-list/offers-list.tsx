@@ -7,7 +7,6 @@ type OffersListProps = {
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
  // cardType: string;
-  //onCardHover?: (offerId: string | null) => void;
 }
 
 

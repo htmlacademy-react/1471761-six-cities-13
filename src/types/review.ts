@@ -1,4 +1,4 @@
-export type TReview = {
+/*export type TReview = {
   id: string;
   date: string;
   user: TUser;
@@ -11,3 +11,4 @@ export type TUser = {
   avatarUrl: string;
   isPro: boolean;
 };
+*/

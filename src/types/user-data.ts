@@ -1,4 +1,4 @@
-import { TUser } from './review';
+import { TUser } from './comments';
 
 export type TUserData = {
   id: number;

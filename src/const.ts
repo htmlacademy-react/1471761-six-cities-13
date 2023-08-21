@@ -5,9 +5,6 @@ export enum AppRoute {
   Offer = '/offer/:id'
 }
 
-export const Setting = {
-  OffersCount: 132
-};
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -81,6 +78,7 @@ export const MAX_COMMENT_COUNT = 10;
 
 export enum APIRoute {
   Offers = '/offers',
+  NearPlaces = '/nearby',
   Login = '/login',
   Logout = '/logout',
   Favorites = '/favorite',

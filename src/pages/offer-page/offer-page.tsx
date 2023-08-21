@@ -102,7 +102,7 @@ function OfferPage() {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: getPercent(rating) }}></span>
+                <span style={{ width: getPercent(rating)}}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">{rating}</span>

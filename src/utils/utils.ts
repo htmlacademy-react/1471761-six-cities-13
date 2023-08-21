@@ -27,4 +27,5 @@ function sortingOffersByType(offers: TOffer[], type: TSorting): TOffer[] {
   }
 }
 
+
 export { getPercent, getOffersByCity, sortingOffersByType };
