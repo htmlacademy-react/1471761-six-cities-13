@@ -12,9 +12,9 @@ import Loading from '../loading-page/loading-page';
 import { fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction } from '../../store/api-action';
 import classNames from 'classnames';
 import HostInfo from '../../components/host/host';
-import { HousingTypes } from '../../const';
+import { HousingTypes, AuthorizationStatus } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
-
+import ReviewForm from '../../components/review-form/review-form';
 
 function OfferPage() {
 
@@ -29,6 +29,7 @@ function OfferPage() {
 
   const isNearPlaceOffersLoading = useAppSelector((state) => state.isNearPlaceOffersLoading);
   const nearPlaceOffersList = useAppSelector((state) => state.nearPlaceOffers);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const nearPlaceOffers = nearPlaceOffersList?.slice(0, 3);
   const currentComments = comments?.slice(-10);
@@ -136,6 +137,7 @@ function OfferPage() {
             </div>
             <HostInfo hostData={currentOffer} />
             {currentComments && <ReviewList comments={currentComments} />}
+            {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm offerId={offerId} />}
           </div>
 
         </section>

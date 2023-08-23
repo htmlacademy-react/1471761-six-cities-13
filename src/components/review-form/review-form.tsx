@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import { fetchCommentsOfferAction, postCommentOfferAction } from '../../store/api-action';
 
 function ReviewForm() {
-  const { offerId } = useParams();
+  const {offerId} = useParams();
   const [formData, setFormData] = useState({ rating: '0', comment: '' });
 
   function onHandlerFormChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
@@ -20,14 +20,6 @@ function ReviewForm() {
   const dispatch = useAppDispatch();
 
 
-  //const [comment, setComment] = useState('');
-  //const [rating, setRaiting] = useState('');
-
-  //const isValid =
-  // comment.length >= MIN_CHARACTERS_COUNT &&
-  // comment.length <= MAX_CHARACTERS_COUNT &&
-  //rating !== '';
-
   const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (offerId) {
@@ -40,14 +32,6 @@ function ReviewForm() {
       dispatch(fetchCommentsOfferAction(offerId));
     }
   };
-
-  //function handleTextareaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
-  //setComment(evt.target.value);
-  //}
-
-  //function handleInputChange(evt: ChangeEvent<HTMLInputElement>) {
-  // setRaiting(evt.target.value);
-  //}
 
   return (
     <form

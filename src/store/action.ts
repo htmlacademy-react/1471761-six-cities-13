@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { TFullOffer, TOffer } from '../types/offers';
-import { TComment } from '../types/comments';
+import { TComment, TCommentData } from '../types/comments';
 import { AuthorizationStatus, APIRoute } from '../const';
 import { TUserData } from '../types/user-data';
 
@@ -29,6 +29,6 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 
 export const setAuthInfo = createAction('USER/setUserInfo', (userInfo: TUserData | null) => ({payload: userInfo }));
 
-export const postComment = createAction('REVIEWS/post', (newComment: Comment) => ({ payload: newComment }));
+export const postComment = createAction('REVIEWS/post', (newComment: TCommentData) => ({ payload: newComment }));
 
 export const redirectToRoute = createAction<APIRoute>('offer/redirectToRoute');
