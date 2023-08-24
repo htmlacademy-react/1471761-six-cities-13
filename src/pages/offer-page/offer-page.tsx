@@ -8,13 +8,15 @@ import { useEffect } from 'react';
 import { getPercent } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
 import { dropOffer } from '../../store/action';
-import Loading from '../loading-page/loading-page';
+//import Loading from '../loading-page/loading-page';
 import { fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction } from '../../store/api-action';
 import classNames from 'classnames';
 import HostInfo from '../../components/host/host';
 import { HousingTypes, AuthorizationStatus } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewForm from '../../components/review-form/review-form';
+import Spinner from '../../components/spinner/spinner';
+
 
 function OfferPage() {
 
@@ -49,7 +51,7 @@ function OfferPage() {
 
   if (currentOffer === null || isFullOfferLoading || isNearPlaceOffersLoading || isCommentsDataLoading) {
     return (
-      <Loading />
+      <Spinner />
     );
   }
 

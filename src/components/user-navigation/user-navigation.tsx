@@ -11,7 +11,7 @@ function UserNavigation(): JSX.Element {
   const isLoggedIn = userStatus === AuthorizationStatus.Auth;
 
   const userData = useAppSelector((state) => state.userData);
-  //const favorites = useAppSelector((state) => state.favorites);
+  const favorites = useAppSelector((state) => state.favorites);
 
 
   return (
@@ -32,9 +32,8 @@ function UserNavigation(): JSX.Element {
 
               </div>
               <span className="header__user-name user__name">{userData?.email}</span>
-              <span className="header__favorite-count">
-                3
-              </span>
+              { favorites.length > 0 &&
+              <span className="header__favorite-count">{favorites.length}</span>}
             </Link>
           </li>
           <li className="header__nav-item">

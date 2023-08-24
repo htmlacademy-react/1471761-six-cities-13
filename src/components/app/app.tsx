@@ -14,8 +14,8 @@ import ScrollToTop from '../scroll-to-top/scroll-to.top';
 import { AuthorizationStatus, AppRoute } from '../../const';
 //import { useEffect } from 'react';
 import { useAppSelector } from '../../hooks';
-import Loading from '../../pages/loading-page/loading-page';
-
+//import Loading from '../../pages/loading-page/loading-page';
+import Spinner from '../spinner/spinner';
 
 function App() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -23,7 +23,7 @@ function App() {
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
-      <Loading />
+      <Spinner />
     );
   }
 

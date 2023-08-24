@@ -1,7 +1,8 @@
-function Loading(): JSX.Element {
+/*function Loading(): JSX.Element {
   return (
     <p>Loading ...</p>
   );
 }
 
 export default Loading;
+*/

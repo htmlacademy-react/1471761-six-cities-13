@@ -6,6 +6,8 @@ type HeaderProps = {
 }
 
 export function Header({ isUserNavigation }: HeaderProps) {
+
+
   return (
     <header className="header">
       <div className="container">
