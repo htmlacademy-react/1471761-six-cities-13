@@ -92,3 +92,9 @@ export enum OptionHeaderPage {
   WithNav = 'WITH_NAV',
   WithoutNav = 'WITHOUT_NAV'
 }
+
+export enum NameSpace {
+  Data = 'DATA',
+  App = 'APP',
+  User = 'USER',
+}

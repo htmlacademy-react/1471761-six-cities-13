@@ -1,4 +1,4 @@
-import TailSpin from 'react-loader-spinner';
+import { Blocks } from 'react-loader-spinner';
 import styles from './spinner.module.css';
 
 function Spinner(): JSX.Element {
@@ -6,11 +6,13 @@ function Spinner(): JSX.Element {
   return (
     <div>
       <div className={styles['wrapper-spinner']}>
-        <TailSpin
-
-          color="#00BFFF"
-          height={100}
-          width={100}
+        <Blocks
+          visibl={true}
+          height={80}
+          width={80}
+          ariaLabel='blocks-loading'
+          wrapperStyle={{}}
+          wrapperClass='blocks/wrapper'
         />
       </div>
     </div>
