@@ -7,14 +7,15 @@ import Tabs from '../../components/tabs/tabs';
 import Sorting from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
 import { sortingOffersByType } from '../../utils/utils';
-
+import { getActiveCity, getOffers } from '../../store/data-process/data-process.selectors';
+//import EmptyMain from './empty-main-page';
 
 function MainPage() {
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
   const [activeSorting, setActiveSorting] = useState<TSorting>('Popular');
 
-  const currentCity = useAppSelector((state) => state.activeCity);
-  const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector(getActiveCity);
+  const offers = useAppSelector(getOffers);
   const offersByCity = offers.filter(
     (offer) => offer.city.name === currentCity);
 

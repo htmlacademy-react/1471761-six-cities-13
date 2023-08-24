@@ -88,13 +88,13 @@ export enum APIRoute {
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
-export enum OptionHeaderPage {
+/*export enum OptionHeaderPage {
   WithNav = 'WITH_NAV',
   WithoutNav = 'WITHOUT_NAV'
-}
+} */
 
 export enum NameSpace {
   Data = 'DATA',
-  App = 'APP',
+  Comment = 'COMMENT',
   User = 'USER',
 }

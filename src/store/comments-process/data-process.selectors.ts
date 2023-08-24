@@ -1,6 +1,6 @@
-import { NameSpace } from '../../const';
-import { TFullOffer, TOffer } from '../../types/offers';
+import { TOffer, TFullOffer } from '../../types/offers';
 import { State } from '../../types/state';
+import { NameSpace } from '../../const';
 
 export const getOffers = (state: State): TOffer[] => state[NameSpace.Data].offers;
 export const isOffersStatusLoading = (state: State): boolean => state[NameSpace.Data].isOffersDataLoading;
@@ -15,4 +15,4 @@ export const getActiveCity = (state: State): string => state[NameSpace.Data].act
 
 export const getFavoriteOffers = (state: State): TOffer[] => state[NameSpace.Data].favorites;
 
-export const getErrorStatus = (state: State): boolean => state[NameSpace.Data].hasError;
+//export const getErrorStatus = (state: State): boolean => state[NameSpace.Offers].hasError;

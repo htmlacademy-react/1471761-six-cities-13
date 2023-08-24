@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getPercent } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
-import { dropOffer } from '../../store/action';
+//import { dropOffer } from '../../store/action';
 //import Loading from '../loading-page/loading-page';
 import { fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction } from '../../store/api-action';
 import classNames from 'classnames';
@@ -16,22 +16,26 @@ import { HousingTypes, AuthorizationStatus } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewForm from '../../components/review-form/review-form';
 import Spinner from '../../components/spinner/spinner';
-
+import { getNearPlaceOffers, getOffer, isNearPlaceOffersStatusLoading, isOfferStatusLoading } from '../../store/data-process/data-process.selectors';
+import { dropOffer } from '../../store/data-process/data-process.slice';
+import { getComments, isCommentsStatusLoading } from '../../store/comments-data/comments-data.selectors';
+import { getAutorizationStatus } from '../../store/user-process/user-process.selectors';
 
 function OfferPage() {
 
   const { offerId } = useParams();
   const dispatch = useAppDispatch();
 
-  const currentOffer = useAppSelector((state) => state.offer);
-  const isFullOfferLoading = useAppSelector((state) => state.isFullOfferDataLoading);
+  const currentOffer = useAppSelector(getOffer);
+  const isFullOfferLoading = useAppSelector(isOfferStatusLoading);
 
-  const comments = useAppSelector((state) => state.comments);
-  const isCommentsDataLoading = useAppSelector((state) => state.isCommentsDataLoading);
+  const comments = useAppSelector(getComments);
+  const isCommentsDataLoading = useAppSelector(isCommentsStatusLoading);
 
-  const isNearPlaceOffersLoading = useAppSelector((state) => state.isNearPlaceOffersLoading);
-  const nearPlaceOffersList = useAppSelector((state) => state.nearPlaceOffers);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isNearPlaceOffersLoading = useAppSelector(isNearPlaceOffersStatusLoading);
+  const nearPlaceOffersList = useAppSelector(getNearPlaceOffers);
+
+  const authorizationStatus = useAppSelector(getAutorizationStatus);
 
   const nearPlaceOffers = nearPlaceOffersList?.slice(0, 3);
   const currentComments = comments?.slice(-10);
@@ -49,19 +53,18 @@ function OfferPage() {
   }, [offerId, dispatch]);
 
 
-  if (currentOffer === null || isFullOfferLoading || isNearPlaceOffersLoading || isCommentsDataLoading) {
+  if (isFullOfferLoading || isFullOfferLoading || isNearPlaceOffersLoading || isCommentsDataLoading) {
     return (
       <Spinner />
     );
   }
 
-
-  const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
-  const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
-
   if (!currentOffer) {
     return <NotFoundPage />;
   }
+
+  const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
+  const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
 
   return (
 
@@ -110,7 +113,7 @@ function OfferPage() {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: getPercent(rating)}}></span>
+                <span style={{ width: getPercent(rating) }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">{rating}</span>
@@ -139,7 +142,8 @@ function OfferPage() {
             </div>
             <HostInfo hostData={currentOffer} />
             {currentComments && <ReviewList comments={currentComments} />}
-            {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm offerId={offerId} />}
+            {authorizationStatus === AuthorizationStatus.Auth &&
+              <ReviewForm offerId={offerId} />}
           </div>
 
         </section>
@@ -157,7 +161,7 @@ function OfferPage() {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            {nearPlaceOffersList && <OffersList offers={nearPlaceOffers} /> }
+            {nearPlaceOffersList && <OffersList offers={nearPlaceOffers} />}
           </section>
         </div>
       </main >

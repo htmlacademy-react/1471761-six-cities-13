@@ -24,7 +24,7 @@ export type TOffers = {
 
 export type TComments = {
   comments: TComment[];
-  isReviewsDataLoading: boolean;
+  isCommentsDataLoading: boolean;
 }
 
 export type State = ReturnType<typeof store.getState>;

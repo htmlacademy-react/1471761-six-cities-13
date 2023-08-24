@@ -1,4 +1,4 @@
-
+/*
 import { createReducer } from '@reduxjs/toolkit';
 import { TFullOffer, TOffer } from '../types/offers';
 import { TComment } from '../types/comments';
@@ -100,7 +100,8 @@ const reducer = createReducer(initialState, (builder) =>
     })
 /*.addCase(setError, (state, action) => {
       state.error = action.payload;
-    })  */
+    })
 );
 
 export { reducer };
+*/

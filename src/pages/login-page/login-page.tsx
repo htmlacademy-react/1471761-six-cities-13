@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-action';
 import { Header } from '../../components/header/header';
-
+import { getAutorizationStatus } from '../../store/user-process/user-process.selectors';
+import { useAppSelector } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
+import { Navigate } from 'react-router-dom';
 
 function LoginPage() {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -24,6 +27,11 @@ function LoginPage() {
     }
   };
 
+  const hasAuthorization = useAppSelector(getAutorizationStatus) === AuthorizationStatus.Auth;
+
+  if (hasAuthorization) {
+    return <Navigate to={AppRoute.Main} />;
+  }
 
   return (
 

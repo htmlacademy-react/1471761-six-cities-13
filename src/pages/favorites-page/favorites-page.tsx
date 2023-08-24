@@ -6,6 +6,8 @@ import { TOffer } from '../../types/offers';
 import { Link } from 'react-router-dom';
 import FavoritesEmptyPage from './favorites-empty-page';
 import OfferList from '../../components/offers-list/offers-list';
+import { getFavoriteOffers } from '../../store/data-process/data-process.selectors';
+import { AppRoute } from '../../const';
 
 type TOffersByCity = {
   [city: string]: TOffer[];
@@ -27,7 +29,7 @@ const getOffersByCity = (offers: TOffer[]) =>
 
 
 function FavoritesPage() {
-  const favoriteOffers = useAppSelector((state) => state.favorites);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
   const favoriteOffersByCity = getOffersByCity(favoriteOffers);
 
 
@@ -53,7 +55,7 @@ function FavoritesPage() {
                   >
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <Link className="locations__item-link" to="#">
+                        <Link className="locations__item-link" to={AppRoute.Main}>
                           <span>{city}</span>
                         </Link>
                       </div>

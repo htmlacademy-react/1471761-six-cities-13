@@ -2,7 +2,7 @@ import { Fragment, useState, ChangeEvent, FormEvent } from 'react';
 import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, TITLE_RATING } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { useParams } from 'react-router';
-import { fetchCommentsOfferAction, postCommentOfferAction } from '../../store/api-action';
+import { postCommentOfferAction } from '../../store/api-action';
 
 function ReviewForm() {
   const {offerId} = useParams();
@@ -29,7 +29,6 @@ function ReviewForm() {
         offerId: offerId
       }));
       setFormData({ ...formData, comment: '', rating: '0' });
-      dispatch(fetchCommentsOfferAction(offerId));
     }
   };
 

@@ -9,7 +9,7 @@ import { TComment, TCommentData } from '../types/comments.js';
 import { TUserData } from '../types/user-data.js';
 //import { store } from './.';
 import { APIRoute } from '../const';
-import { AppDispatch, State } from '../types/state';
+import { AppDispatch, State} from '../types/state';
 
 export const fetchOffersAction = createAsyncThunk<TOffer[], undefined, {
   dispatch: AppDispatch;
@@ -55,8 +55,8 @@ export const fetchCommentsOfferAction = createAsyncThunk<TComment, string, {
   extra: AxiosInstance;
 }>(
   'REVIEWS/fetch',
-  async (offerId, { extra: api }) => {
-    const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${offerId}`);
+  async (offerId, {extra: api }) => {
+    const { data } = await api.get<TComment>(`${APIRoute.Comments}/${offerId}`);
     return data;
   }
 );
