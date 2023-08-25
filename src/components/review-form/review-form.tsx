@@ -1,26 +1,31 @@
-import { Fragment, useState, ChangeEvent, FormEvent } from 'react';
-import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, TITLE_RATING } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { Fragment, useState, ChangeEvent, FormEvent, useCallback } from 'react';
+import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, Status, TITLE_RATING } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router';
 import { postCommentOfferAction } from '../../store/api-action';
+import { getCommentStatus } from '../../store/comments-data/comments-data.selectors';
 
 function ReviewForm() {
-  const {offerId} = useParams();
+  const { offerId } = useParams();
   const [formData, setFormData] = useState({ rating: '0', comment: '' });
 
-  function onHandlerFormChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
+  const postCommentStatus = useAppSelector(getCommentStatus);
+
+  const onHandlerFormChange = useCallback((evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
-  }
+  }, [formData]);
 
   const buttonDisable =
     formData.comment.length < MIN_CHARACTERS_COUNT
-    || !+formData.rating;
+    || formData.comment.length > MAX_CHARACTERS_COUNT
+    || !+formData.rating
+    || postCommentStatus === Status.Loading;
 
   const dispatch = useAppDispatch();
 
 
-  const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
+  const submitHandler = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (offerId) {
       dispatch(postCommentOfferAction({
@@ -28,9 +33,12 @@ function ReviewForm() {
         rating: +formData.rating,
         offerId: offerId
       }));
-      setFormData({ ...formData, comment: '', rating: '0' });
+      if (postCommentStatus === Status.Loading || !(postCommentStatus === Status.Error)) {
+        setFormData({ ...formData, comment: '', rating: '0' });
+      }
     }
-  };
+  }, [offerId, dispatch, formData, postCommentStatus]);
+
 
   return (
     <form
@@ -82,10 +90,11 @@ function ReviewForm() {
         value={formData.comment}
         onChange={onHandlerFormChange}
         maxLength={MAX_CHARACTERS_COUNT}
-      />
+      >
+      </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set{''}
+          To submit review please make sure to set
           <span className="reviews__star">rating</span> and describe your stay with
           at least {' '}
           <b className="reviews__text-amount">

@@ -24,10 +24,10 @@ function App() {
   const authorizationStatus = useAppSelector(getAutorizationStatus);
   const isOffersDataLoading = useAppSelector(isOffersStatusLoading);
 
-  const isAutchChecked = useAppSelector(getAuthCheckedStatus);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
   const hasError = useAppSelector(getErrorStatus);
 
-  if (isOffersDataLoading) {
+  if (!isAuthChecked || isOffersDataLoading) {
     return (
       <Spinner />
     );
