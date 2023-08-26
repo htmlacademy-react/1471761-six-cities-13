@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Header } from '../../components/header/header';
+import HeaderMemo from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks';
 //import { TOffer } from '../../types/offers';
@@ -40,7 +40,7 @@ function FavoritesPage() {
       <Helmet>
         <title>Six Cities -your favorite offers</title>
       </Helmet>
-      <Header isUserNavigation />
+      <HeaderMemo isUserNavigation />
       {favoriteOffers.length ?
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">

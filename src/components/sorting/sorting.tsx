@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, memo } from 'react';
 import classNames from 'classnames';
 import { TSorting } from '../../types/sorting';
 import { SortOffersType } from '../../const';
@@ -72,5 +72,7 @@ function Sorting({ activeSorting, onChange }: SortingProps) {
   );
 }
 
-export default Sorting;
+const SortingMemo = memo(Sorting);
+
+export default SortingMemo;
 

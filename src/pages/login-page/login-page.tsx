@@ -4,7 +4,7 @@ import { useRef, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-action';
-import { Header } from '../../components/header/header';
+import HeaderMemo from '../../components/header/header';
 import { getAutorizationStatus } from '../../store/user-process/user-process.selectors';
 import { useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
@@ -39,7 +39,7 @@ function LoginPage() {
       <Helmet>
         <title>Six Cities -login page</title>
       </Helmet>
-      <Header />
+      <HeaderMemo />
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

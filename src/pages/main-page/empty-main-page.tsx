@@ -1,4 +1,4 @@
-import { Header } from '../../components/header/header';
+import HeaderMemo from '../../components/header/header';
 
 type EmptyMainProps = {
   city: string;
@@ -7,7 +7,7 @@ type EmptyMainProps = {
 function EmptyMain({ city }: EmptyMainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <Header isUserNavigation />
+      <HeaderMemo isUserNavigation />
 
       <div className="cities__places-container cities__places-container--empty container">
         <section className="cities__no-places">

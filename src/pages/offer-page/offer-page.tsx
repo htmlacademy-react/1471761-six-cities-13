@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Header } from '../../components/header/header';
+import HeaderMemo from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
 import { ReviewList } from '../../components/reviews-list/review-list';
 import Map from '../../components/map/map';
@@ -87,7 +87,7 @@ function OfferPage() {
       <Helmet>
         <title>Six Cities -best offers</title>
       </Helmet>
-      <Header isUserNavigation />
+      <HeaderMemo isUserNavigation />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">

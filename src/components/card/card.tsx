@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAutorizationStatus } from '../../store/user-process/user-process.selectors';
 
+
 type CardProp = {
   offer: TOffer | TFullOffer;
   cardType: string;
@@ -100,5 +101,6 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     </article >
   );
 }
+
 
 export default Card;

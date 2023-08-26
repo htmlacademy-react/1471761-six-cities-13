@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { setActiveCity } from '../../store/data-process/data-process.slice';
 
+
 type TabsProps = {
   currentCity: string;
 }
@@ -36,5 +37,6 @@ function Tabs(props: TabsProps): JSX.Element {
     </div>
   );
 }
+
 
 export default Tabs;

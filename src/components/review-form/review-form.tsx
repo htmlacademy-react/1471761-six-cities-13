@@ -7,6 +7,8 @@ import { getCommentStatus } from '../../store/comments-data/comments-data.select
 
 function ReviewForm() {
   const { offerId } = useParams();
+  const dispatch = useAppDispatch();
+
   const [formData, setFormData] = useState({ rating: '0', comment: '' });
 
   const postCommentStatus = useAppSelector(getCommentStatus);
@@ -21,8 +23,6 @@ function ReviewForm() {
     || formData.comment.length > MAX_CHARACTERS_COUNT
     || !+formData.rating
     || postCommentStatus === Status.Loading;
-
-  const dispatch = useAppDispatch();
 
 
   const submitHandler = useCallback((evt: FormEvent<HTMLFormElement>) => {

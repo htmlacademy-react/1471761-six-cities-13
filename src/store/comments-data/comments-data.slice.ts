@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TComments } from '../../types/state';
-import { NameSpace } from '../../const';
+import { NameSpace, Status } from '../../const';
 //import { fetchCommentsOfferAction } from '../api-action';
 import { toast } from 'react-toastify';
 import { fetchCommentsOfferAction, postCommentOfferAction } from '../api-action';
@@ -8,6 +8,7 @@ import { fetchCommentsOfferAction, postCommentOfferAction } from '../api-action'
 const initialState: TComments = {
   comments: [],
   isCommentsDataLoading: false,
+  status: Status.Idle
 };
 
 export const comments = createSlice({
@@ -25,6 +26,9 @@ export const comments = createSlice({
       })
       .addCase(fetchCommentsOfferAction.rejected, (state) => {
         state.isCommentsDataLoading = false;
+      })
+      .addCase(postCommentOfferAction.pending, (state) => {
+        state.status = Status.Loading;
       })
       .addCase(postCommentOfferAction.fulfilled, (state, action) => {
         state.comments.unshift(action.payload);
