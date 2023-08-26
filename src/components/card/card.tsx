@@ -17,8 +17,6 @@ type CardProp = {
 
 function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
   const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = offer;
-  //console.log(id);
-
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -52,7 +50,6 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     { 'place-card__bookmark-button--active': isFavorite },
     'button'
   );
-
 
   return (
     <article

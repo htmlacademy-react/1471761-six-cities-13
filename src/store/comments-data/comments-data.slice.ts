@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TComments } from '../../types/state';
 import { NameSpace, Status } from '../../const';
-//import { fetchCommentsOfferAction } from '../api-action';
 import { toast } from 'react-toastify';
 import { fetchCommentsOfferAction, postCommentOfferAction } from '../api-action';
 

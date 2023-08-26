@@ -1,6 +1,5 @@
 import Card from '../card/card';
 import { TOffer } from '../../types/offers';
-//import classNames from 'classnames';
 
 type OffersListProps = {
   offers?: TOffer[];

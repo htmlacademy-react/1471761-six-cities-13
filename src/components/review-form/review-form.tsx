@@ -24,9 +24,6 @@ function ReviewForm() {
     || !+formData.rating
     || postCommentStatus === Status.Loading;
 
-  // console.log(buttonDisable, 'wtf');
-
-
   const submitHandler = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (offerId) {

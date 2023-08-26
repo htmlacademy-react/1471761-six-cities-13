@@ -5,7 +5,6 @@ import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import { TCity, TFullOffer, TOffer } from '../../types/offers';
 import classNames from 'classnames';
-//import { HousingTypes } from '../../const';
 
 type MapProps = {
   city: TCity;
@@ -43,7 +42,6 @@ function Map({ city, offers, cardType, selectedOffer, currentOffer }: MapProps):
 
       offers?.forEach((offer) => {
         const { location, title, type, id, price, previewImage } = offer;
-        //const typeOfAllocation = HousingTypes[type];
 
         const marker = new Marker([
           location.latitude,

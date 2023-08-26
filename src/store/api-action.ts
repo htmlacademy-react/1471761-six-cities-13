@@ -1,13 +1,10 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TOffer, TFullOffer } from '../types/offers.js';
-//import { AppDispatch } from '../types/state';
 import { saveToken, dropToken } from '../services/token';
-//import { AuthorizationStatus } from '../const';
 import { TAuthData } from '../types/auth-data';
 import { TComment, TCommentData } from '../types/comments.js';
 import { TUserData } from '../types/user-data.js';
-//import { store } from './.';
 import { APIRoute, AppRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
 import { redirectToRoute } from './action.js';

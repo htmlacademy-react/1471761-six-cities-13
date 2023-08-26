@@ -7,8 +7,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getPercent } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
-//import { dropOffer } from '../../store/action';
-//import Loading from '../loading-page/loading-page';
 import { addToFavoriteAction, fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction } from '../../store/api-action';
 import classNames from 'classnames';
 import HostInfo from '../../components/host/host';
