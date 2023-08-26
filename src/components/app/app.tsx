@@ -64,7 +64,7 @@ function App() {
 
           />
           <Route
-            path={`${AppRoute.Offer}/:offerId`}
+            path={`${AppRoute.Offer}`}
             element={<OfferPage />}
           />
           <Route path="*" element={<NotFoundPage />} />

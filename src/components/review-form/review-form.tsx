@@ -24,6 +24,8 @@ function ReviewForm() {
     || !+formData.rating
     || postCommentStatus === Status.Loading;
 
+  // console.log(buttonDisable, 'wtf');
+
 
   const submitHandler = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -84,8 +86,8 @@ function ReviewForm() {
 
       <textarea
         className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
+        id="comment"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.comment}
         onChange={onHandlerFormChange}

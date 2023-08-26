@@ -17,6 +17,8 @@ type CardProp = {
 
 function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
   const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = offer;
+  //console.log(id);
+
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -60,7 +62,7 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     >
       {isPremium && <PlaceCardMark />}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Offer}/${id}`}>
+        <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -94,7 +96,7 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/:${offer.id}`}>{title}</Link>
+          <Link to={`/offer/${offer.id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{HousingTypes[type]}</p>
       </div >
