@@ -56,7 +56,6 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
       className="cities__card place-card"
       onMouseEnter={() => onCardMouseEnter}
       onMouseLeave={onCardMouseLeave}
-      data-testid='place-card-container'
     >
       {isPremium && <PlaceCardMark />}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
