@@ -11,19 +11,31 @@ import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to.top';
 //import { useAppDispatch } from '../../hooks';
 //import { fetchFavorites } from '../../store/action';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { AppRoute } from '../../const';
 //import { useEffect } from 'react';
 import { useAppSelector } from '../../hooks';
-import Loading from '../../pages/loading-page/loading-page';
-
+//import Loading from '../../pages/loading-page/loading-page';
+import Spinner from '../spinner/spinner';
+import { getAuthCheckedStatus, getAutorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getErrorStatus, isOffersStatusLoading } from '../../store/data-process/data-process.selectors';
+import ErrorPage from '../../pages/error-page/error-page';
 
 function App() {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const authorizationStatus = useAppSelector(getAutorizationStatus);
+  const isOffersDataLoading = useAppSelector(isOffersStatusLoading);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const hasError = useAppSelector(getErrorStatus);
+
+  if (!isAuthChecked || isOffersDataLoading) {
     return (
-      <Loading />
+      <Spinner />
+    );
+  }
+
+  if (hasError) {
+    return (
+      <ErrorPage />
     );
   }
 
@@ -52,7 +64,7 @@ function App() {
 
           />
           <Route
-            path={`${AppRoute.Offer}/:offerId`}
+            path={`${AppRoute.Offer}`}
             element={<OfferPage />}
           />
           <Route path="*" element={<NotFoundPage />} />

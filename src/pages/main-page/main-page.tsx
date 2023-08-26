@@ -1,20 +1,21 @@
 import OffersList from '../../components/offers-list/offers-list';
-import { Header } from '../../components/header/header';
+import HeaderMemo from '../../components/header/header';
 import Map from '../../components/map/map';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import Tabs from '../../components/tabs/tabs';
-import Sorting from '../../components/sorting/sorting';
+import SortingMemo from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
 import { sortingOffersByType } from '../../utils/utils';
-
+import { getActiveCity, getOffers } from '../../store/data-process/data-process.selectors';
+//import EmptyMain from './empty-main-page';
 
 function MainPage() {
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
   const [activeSorting, setActiveSorting] = useState<TSorting>('Popular');
 
-  const currentCity = useAppSelector((state) => state.activeCity);
-  const offers = useAppSelector((state) => state.offers);
+  const currentCity = useAppSelector(getActiveCity);
+  const offers = useAppSelector(getOffers);
   const offersByCity = offers.filter(
     (offer) => offer.city.name === currentCity);
 
@@ -25,7 +26,7 @@ function MainPage() {
   return (
 
     <div className="page page--gray page--main">
-      < Header isUserNavigation />
+      < HeaderMemo isUserNavigation />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -38,7 +39,7 @@ function MainPage() {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersByCity.length} places to stay in {currentCity}</b>
 
-              <Sorting
+              <SortingMemo
                 activeSorting={activeSorting}
                 onChange={(newSorting) => setActiveSorting(newSorting)}
               />

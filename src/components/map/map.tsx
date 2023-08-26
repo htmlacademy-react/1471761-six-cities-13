@@ -74,7 +74,7 @@ function Map({ city, offers, cardType, selectedOffer, currentOffer }: MapProps):
         `${cardType}__map`,
         'map'
       )}
-      style={{ height: '600px' }}
+      style={{height: '100%', minHeight: '600px' }}
       ref={mapRef}
     >
 

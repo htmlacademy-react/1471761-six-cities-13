@@ -1,10 +1,10 @@
 import Footer from '../../components/footer/footer';
-import { Header } from '../../components/header/header';
+import HeaderMemo from '../../components/header/header';
 
 function FavoritesEmptyPage(): JSX.Element {
   return (
     <div className="page page--favorites-empty">
-      <Header isUserNavigation />
+      <HeaderMemo isUserNavigation />
 
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">

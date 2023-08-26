@@ -46,7 +46,7 @@ export const STARS_COUNT = 5;
 export const MIN_CHARACTERS_COUNT = 50;
 export const MAX_CHARACTERS_COUNT = 300;
 
-export const TITLE_RATING = [
+export const RATING_TITLES = [
   'perfect',
   'good',
   'not bad',
@@ -88,7 +88,20 @@ export enum APIRoute {
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
-export enum OptionHeaderPage {
+/*export enum OptionHeaderPage {
   WithNav = 'WITH_NAV',
   WithoutNav = 'WITHOUT_NAV'
+} */
+
+export enum NameSpace {
+  Data = 'DATA',
+  Comment = 'COMMENT',
+  User = 'USER',
+}
+
+export enum Status {
+  Idle = 'idle',
+  Loading = 'loading',
+  Success = 'success',
+  Error = 'error'
 }

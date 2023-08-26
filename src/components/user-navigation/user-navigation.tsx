@@ -2,16 +2,18 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-
+import { getAutorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getUserData } from '../../store/user-process/user-process.selectors';
+import { getFavoriteOffers } from '../../store/data-process/data-process.selectors';
 
 function UserNavigation(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const userStatus = useAppSelector((state) => state.authorizationStatus);
+  const userStatus = useAppSelector(getAutorizationStatus);
   const isLoggedIn = userStatus === AuthorizationStatus.Auth;
 
-  const userData = useAppSelector((state) => state.userData);
-  //const favorites = useAppSelector((state) => state.favorites);
+  const userData = useAppSelector(getUserData);
+  const favorites = useAppSelector(getFavoriteOffers);
 
 
   return (
@@ -32,9 +34,8 @@ function UserNavigation(): JSX.Element {
 
               </div>
               <span className="header__user-name user__name">{userData?.email}</span>
-              <span className="header__favorite-count">
-                3
-              </span>
+              { favorites.length > 0 &&
+              <span className="header__favorite-count">{favorites.length}</span>}
             </Link>
           </li>
           <li className="header__nav-item">
