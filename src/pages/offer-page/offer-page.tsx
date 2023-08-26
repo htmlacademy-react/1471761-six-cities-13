@@ -158,7 +158,7 @@ function OfferPage() {
             <HostInfo hostData={currentOffer} />
             {currentComments && <ReviewList comments={currentComments} />}
             {authorizationStatus === AuthorizationStatus.Auth &&
-              <ReviewForm offerId={offerId} />}
+              <ReviewForm />}
           </div>
 
         </section>

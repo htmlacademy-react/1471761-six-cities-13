@@ -90,6 +90,7 @@ function ReviewForm() {
         value={formData.comment}
         onChange={onHandlerFormChange}
         maxLength={MAX_CHARACTERS_COUNT}
+        disabled={postCommentStatus === Status.Loading}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -105,8 +106,7 @@ function ReviewForm() {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={buttonDisable}
-        >
-          Submit
+        >{postCommentStatus === Status.Loading ? 'In process...' : 'Submit'}
         </button>
       </div>
     </form>

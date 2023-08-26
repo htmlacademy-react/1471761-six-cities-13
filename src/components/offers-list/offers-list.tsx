@@ -3,10 +3,10 @@ import { TOffer } from '../../types/offers';
 //import classNames from 'classnames';
 
 type OffersListProps = {
-  offers: TOffer[];
+  offers?: TOffer[];
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
- // cardType: string;
+
 }
 
 
