@@ -1,8 +1,11 @@
-import { AppRoute, HousingTypes } from '../../const';
+import { AppRoute, AuthorizationStatus, HousingTypes } from '../../const';
 import { TFullOffer, TOffer } from '../../types/offers';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getRating } from '../../utils/utils';
-
+import { addToFavoriteAction } from '../../store/api-action';
+import classNames from 'classnames';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getAutorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type CardProp = {
   offer: TOffer | TFullOffer;
@@ -13,6 +16,10 @@ type CardProp = {
 
 function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
   const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = offer;
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authorizationStatus = useAppSelector(getAutorizationStatus);
 
   const onCardMouseEnter = () => {
     onMouseEnter?.(id);
@@ -29,11 +36,27 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     </div>
   );
 
+  const onFavoriteClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(addToFavoriteAction({ status: (!isFavorite ? 1 : 0), id: id }));
+      return;
+    }
+    navigate(AppRoute.Login);
+  };
+
+  const favClass = classNames(
+    'place-card__bookmark-button',
+    { 'place-card__bookmark-button--active': isFavorite },
+    'button'
+  );
+
+
   return (
     <article
-      className={`${cardType}__card place-card`}
-      onMouseEnter={onCardMouseEnter}
+      className="cities__card place-card"
+      onMouseEnter={() => onCardMouseEnter}
       onMouseLeave={onCardMouseLeave}
+      data-testid='place-card-container'
     >
       {isPremium && <PlaceCardMark />}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
@@ -53,7 +76,7 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button className={favClass} type="button" onClick={onFavoriteClick}>
             <svg
               className="place-card__bookmark-icon"
               width={18}
