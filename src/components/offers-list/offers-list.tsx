@@ -1,4 +1,4 @@
-import Card from '../../card/card';
+import Card from '../card/card';
 import { TOffer } from '../../types/offers';
 //import classNames from 'classnames';
 

@@ -1,5 +1,5 @@
 import { Fragment, useState, ChangeEvent, FormEvent, useCallback } from 'react';
-import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, Status, TITLE_RATING } from '../../const';
+import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, Status, RATING_TITLES } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router';
 import { postCommentOfferAction } from '../../store/api-action';
@@ -54,8 +54,8 @@ function ReviewForm() {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {TITLE_RATING.map((title, i) => {
-          const index = TITLE_RATING.length - i;
+        {RATING_TITLES.map((title, i) => {
+          const index = RATING_TITLES.length - i;
 
           return (
             <Fragment key={title}>

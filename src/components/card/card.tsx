@@ -1,7 +1,7 @@
-import { AppRoute, HousingTypes } from '../const';
-import { TFullOffer, TOffer } from '../types/offers';
+import { AppRoute, HousingTypes } from '../../const';
+import { TFullOffer, TOffer } from '../../types/offers';
 import { Link } from 'react-router-dom';
-import { getRating } from '../utils/utils';
+import { getRating } from '../../utils/utils';
 
 
 type CardProp = {

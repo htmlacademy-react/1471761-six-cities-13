@@ -46,7 +46,7 @@ export const STARS_COUNT = 5;
 export const MIN_CHARACTERS_COUNT = 50;
 export const MAX_CHARACTERS_COUNT = 300;
 
-export const TITLE_RATING = [
+export const RATING_TITLES = [
   'perfect',
   'good',
   'not bad',

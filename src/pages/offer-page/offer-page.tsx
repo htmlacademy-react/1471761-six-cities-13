@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
 import { ReviewList } from '../../components/reviews-list/review-list';
@@ -9,10 +9,10 @@ import { getPercent } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
 //import { dropOffer } from '../../store/action';
 //import Loading from '../loading-page/loading-page';
-import { fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction } from '../../store/api-action';
+import { addToFavoriteAction, fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction } from '../../store/api-action';
 import classNames from 'classnames';
 import HostInfo from '../../components/host/host';
-import { HousingTypes, AuthorizationStatus } from '../../const';
+import { HousingTypes, AuthorizationStatus, AppRoute } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewForm from '../../components/review-form/review-form';
 import Spinner from '../../components/spinner/spinner';
@@ -25,6 +25,7 @@ function OfferPage() {
 
   const { offerId } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const currentOffer = useAppSelector(getOffer);
   const isFullOfferLoading = useAppSelector(isOfferStatusLoading);
@@ -63,8 +64,22 @@ function OfferPage() {
     return <NotFoundPage />;
   }
 
+
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
   const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
+
+  const onFavoriteClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(addToFavoriteAction({ status: (!isFavorite ? 1 : 0), id: offerId as string }));
+      return;
+    }
+    navigate(AppRoute.Login);
+  };
+  const favClass = classNames(
+    'offer__bookmark-button', 'button',
+    { 'offer__bookmark-button--active': isFavorite },
+  );
+
 
   return (
 
@@ -96,7 +111,7 @@ function OfferPage() {
                 {title}
               </h1>
               <button
-                className={classNames({ 'offer__bookmark-button--active': isFavorite }, 'offer__bookmark-button', 'button')} type="button"
+                className={favClass} type="button" onClick={onFavoriteClick}
               >
                 <svg
                   className="offer__bookmark-icon"
