@@ -62,7 +62,6 @@ function OfferPage() {
     return <NotFoundPage />;
   }
 
-
   const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
   const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
 

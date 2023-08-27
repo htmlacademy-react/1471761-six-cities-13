@@ -4,7 +4,7 @@ type EmptyMainProps = {
   city: string;
 }
 
-function EmptyMain({ city }: EmptyMainProps): JSX.Element {
+function EmptyMain({city}: EmptyMainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <HeaderMemo isUserNavigation />

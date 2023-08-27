@@ -1,4 +1,4 @@
-import { Fragment, useState, ChangeEvent, FormEvent, useCallback } from 'react';
+import { Fragment, useState, ChangeEvent, FormEvent } from 'react';
 import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, Status, RATING_TITLES } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router';
@@ -13,10 +13,10 @@ function ReviewForm() {
 
   const postCommentStatus = useAppSelector(getCommentStatus);
 
-  const onHandlerFormChange = useCallback((evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  const onHandlerFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
-  }, [formData]);
+  };
 
   const buttonDisable =
     formData.comment.length < MIN_CHARACTERS_COUNT
@@ -24,7 +24,12 @@ function ReviewForm() {
     || !+formData.rating
     || postCommentStatus === Status.Loading;
 
-  const submitHandler = useCallback((evt: FormEvent<HTMLFormElement>) => {
+  const resetData = (evt: FormEvent<HTMLFormElement>) => {
+    setFormData({ ...formData, comment: '', rating: '0' });
+    evt.currentTarget.reset();
+  };
+
+  const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (offerId) {
       dispatch(postCommentOfferAction({
@@ -36,7 +41,8 @@ function ReviewForm() {
         setFormData({ ...formData, comment: '', rating: '0' });
       }
     }
-  }, [offerId, dispatch, formData, postCommentStatus]);
+    resetData(evt);
+  };
 
 
   return (
