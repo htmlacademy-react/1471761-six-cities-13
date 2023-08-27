@@ -119,7 +119,7 @@ function OfferPage() {
                     </use>
                   </svg>
                   <span className="visually-hidden">
-                  To bookmarks
+                    To bookmarks
                   </span>
                 </button>
               </div>
@@ -138,7 +138,7 @@ function OfferPage() {
                   {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
+                  Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
                 </li>
               </ul>
               <div className="offer__price">
@@ -154,9 +154,12 @@ function OfferPage() {
               </div>
 
               <HostInfo hostData={currentOffer} />
-              {currentComments && <ReviewList comments={currentComments} />}
-              {authorizationStatus === AuthorizationStatus.Auth &&
-              <ReviewForm />}
+              <section className="offer__reviews reviews">
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{currentComments?.length}</span></h2>
+                {currentComments && <ReviewList comments={currentComments} />}
+                {authorizationStatus === AuthorizationStatus.Auth &&
+                  <ReviewForm />}
+              </section>
             </div>
           </div>
 
