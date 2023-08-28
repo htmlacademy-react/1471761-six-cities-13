@@ -5,7 +5,7 @@ import { ReviewList } from '../../components/reviews-list/review-list';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { getPercent, getRating } from '../../utils/utils';
+import { getRating } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
 import { addToFavoriteAction, fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction } from '../../store/api-action';
 import classNames from 'classnames';
@@ -156,7 +156,7 @@ function OfferPage() {
 
               <HostInfo host={host} description={description} />
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{currentComments?.length}</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                 {currentComments && <ReviewList comments={currentComments} />}
                 {authorizationStatus === AuthorizationStatus.Auth &&
                   <ReviewForm />}
