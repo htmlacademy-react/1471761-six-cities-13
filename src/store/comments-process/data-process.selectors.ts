@@ -15,4 +15,3 @@ export const getActiveCity = (state: State): string => state[NameSpace.Data].act
 
 export const getFavoriteOffers = (state: State): TOffer[] => state[NameSpace.Data].favorites;
 
-//export const getErrorStatus = (state: State): boolean => state[NameSpace.Offers].hasError;

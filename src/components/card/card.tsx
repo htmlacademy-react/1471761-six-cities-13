@@ -3,10 +3,9 @@ import { TFullOffer, TOffer } from '../../types/offers';
 import { Link, useNavigate } from 'react-router-dom';
 import { getRating } from '../../utils/utils';
 import { addToFavoriteAction } from '../../store/api-action';
-import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAutorizationStatus } from '../../store/user-process/user-process.selectors';
-
+import classNames from 'classnames';
 
 type CardProp = {
   offer: TOffer | TFullOffer;
@@ -100,6 +99,5 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     </article >
   );
 }
-
 
 export default Card;
