@@ -5,7 +5,7 @@ import { ReviewList } from '../../components/reviews-list/review-list';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { getPercent } from '../../utils/utils';
+import { getPercent, getRating } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
 import { addToFavoriteAction, fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction } from '../../store/api-action';
 import classNames from 'classnames';
@@ -126,7 +126,7 @@ function OfferPage() {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: getPercent(rating) }}></span>
+                  <span style={{ width: getRating(rating) }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>

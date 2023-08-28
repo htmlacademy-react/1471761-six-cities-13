@@ -14,7 +14,7 @@ export type TComment = {
 }
 
 export type TUser = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
+  name?: string;
+  avatarUrl?: string;
+  isPro?: boolean;
 };
