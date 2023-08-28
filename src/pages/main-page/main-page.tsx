@@ -8,7 +8,7 @@ import SortingMemo from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
 import { sortingOffersByType } from '../../utils/utils';
 import { getActiveCity, getOffers } from '../../store/data-process/data-process.selectors';
-//import EmptyMain from './empty-main-page';
+import EmptyMain from '../empty-main-page/empty-main-page';
 
 function MainPage() {
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
@@ -34,34 +34,35 @@ function MainPage() {
         <Tabs currentCity={currentCity} />
 
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersByCity.length} places to stay in {currentCity}</b>
+          {offers.length === 0 ? <EmptyMain city={currentCity} /> :
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offersByCity.length} places to stay in {currentCity}</b>
 
-              <SortingMemo
-                activeSorting={activeSorting}
-                onChange={(newSorting) => setActiveSorting(newSorting)}
-              />
+                <SortingMemo
+                  activeSorting={activeSorting}
+                  onChange={(newSorting) => setActiveSorting(newSorting)}
+                />
 
-              <OffersList
-                offers={sortingOffersByType(offersByCity, activeSorting)}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-              />
+                <OffersList
+                  offers={sortingOffersByType(offersByCity, activeSorting)}
+                  onMouseEnter={onMouseEnter}
+                  onMouseLeave={onMouseLeave}
+                />
 
-            </section>
-            <div className="cities__right-section">
+              </section>
+              <div className="cities__right-section">
 
-              <Map
-                cardType={'cities'}
-                offers={offersByCity}
-                city={city}
-                selectedOffer={selectedOffer}
-              />
+                <Map
+                  cardType={'cities'}
+                  offers={offersByCity}
+                  city={city}
+                  selectedOffer={selectedOffer}
+                />
 
-            </div>
-          </div>
+              </div>
+            </div>}
         </div>
       </main>
     </div>

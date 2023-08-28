@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TComments } from '../../types/state';
 import { NameSpace, Status } from '../../const';
-//import { fetchCommentsOfferAction } from '../api-action';
 import { toast } from 'react-toastify';
 import { fetchCommentsOfferAction, postCommentOfferAction } from '../api-action';
 
@@ -32,6 +31,7 @@ export const comments = createSlice({
       })
       .addCase(postCommentOfferAction.fulfilled, (state, action) => {
         state.comments.unshift(action.payload);
+        state.status = Status.Success;
       })
       .addCase(postCommentOfferAction.rejected, () => {
         toast.warn('Failed to post comment. Please, try again later');

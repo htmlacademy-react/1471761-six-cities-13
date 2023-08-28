@@ -67,14 +67,13 @@ export const SortOffersType = {
   TopRated: 'Top rated first',
 };
 
-export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const URL_MARKER_DEFAULT = 'img/pin.svg';
 
-export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 export const TILE_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
-export const MAX_COMMENT_COUNT = 10;
 
 export enum APIRoute {
   Offers = '/offers',
@@ -85,13 +84,6 @@ export enum APIRoute {
   NotFound = '/404',
   Comments = '/comments',
 }
-
-export const TIMEOUT_SHOW_ERROR = 2000;
-
-/*export enum OptionHeaderPage {
-  WithNav = 'WITH_NAV',
-  WithoutNav = 'WITHOUT_NAV'
-} */
 
 export enum NameSpace {
   Data = 'DATA',

@@ -3,10 +3,9 @@ import { TFullOffer, TOffer } from '../../types/offers';
 import { Link, useNavigate } from 'react-router-dom';
 import { getRating } from '../../utils/utils';
 import { addToFavoriteAction } from '../../store/api-action';
-import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAutorizationStatus } from '../../store/user-process/user-process.selectors';
-
+import classNames from 'classnames';
 
 type CardProp = {
   offer: TOffer | TFullOffer;
@@ -17,8 +16,6 @@ type CardProp = {
 
 function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.Element {
   const { id, title, type, rating, price, isPremium, isFavorite, previewImage } = offer;
-  //console.log(id);
-
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -53,11 +50,10 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     'button'
   );
 
-
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={() => onCardMouseEnter}
+      onMouseEnter={onCardMouseEnter}
       onMouseLeave={onCardMouseLeave}
     >
       {isPremium && <PlaceCardMark />}
@@ -103,6 +99,5 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     </article >
   );
 }
-
 
 export default Card;

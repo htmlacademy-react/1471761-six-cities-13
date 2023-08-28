@@ -2,37 +2,13 @@ import { Helmet } from 'react-helmet-async';
 import HeaderMemo from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks';
-//import { TOffer } from '../../types/offers';
-//import { Link } from 'react-router-dom';
-import FavoritesEmptyPage from './favorites-empty-page';
-//import OfferList from '../../components/offers-list/offers-list';
+import FavoritesEmptyPage from '../favorites-empty-page/favorites-empty-page';
 import { getFavoriteOffers } from '../../store/data-process/data-process.selectors';
-//import { AppRoute } from '../../const';
 import FavoritesGroup from '../../components/favorite-group/favorite-group';
-
-//type TOffersByCity = {
-// [city: string]: TOffer[];
-//}
-
-/*const getOffersByCity = (offers: TOffer[]) =>
-  offers.reduce((cityGroup: TOffersByCity, offer) => {
-
-    const city = offer.city.name;
-
-    if (!cityGroup[city]) {
-      cityGroup[city] = [];
-    }
-
-    cityGroup[city].push(offer);
-
-    return cityGroup;
-  }, {});  */
 
 
 function FavoritesPage() {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
-  //const favoriteOffersByCity = getOffersByCity(favoriteOffers);
-
 
   return (
 

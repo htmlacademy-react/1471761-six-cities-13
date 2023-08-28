@@ -4,7 +4,6 @@ import { TOffer } from '../../types/offers';
 import { setActiveCity } from '../../store/data-process/data-process.slice';
 import FavoritesList from '../favorites-list/favorites-list';
 
-
 type FavoritesGroupProps = {
   favoriteOffers: TOffer[];
 }

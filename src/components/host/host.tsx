@@ -1,12 +1,13 @@
-import { TFullOffer } from '../../types/offers';
+import { TUser } from '../../types/comments';
 import classNames from 'classnames';
 
 type THostProps = {
-  hostData: TFullOffer;
+  host: TUser;
+  description: string;
 }
 
-function HostInfo({ hostData }: THostProps): JSX.Element {
-  const { host, description } = hostData;
+function HostInfo({ host, description }: THostProps): JSX.Element {
+
   const { avatarUrl, isPro, name } = host;
 
   return (

@@ -1,4 +1,4 @@
-import { Fragment, useState, ChangeEvent, FormEvent, useCallback } from 'react';
+import { Fragment, useState, ChangeEvent, FormEvent } from 'react';
 import { MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT, Status, RATING_TITLES } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router';
@@ -6,40 +6,43 @@ import { postCommentOfferAction } from '../../store/api-action';
 import { getCommentStatus } from '../../store/comments-data/comments-data.selectors';
 
 function ReviewForm() {
-  const { offerId } = useParams();
+  const { id } = useParams();
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({ rating: '0', comment: '' });
 
   const postCommentStatus = useAppSelector(getCommentStatus);
 
-  const onHandlerFormChange = useCallback((evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  const onHandlerFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
-  }, [formData]);
+  };
 
-  const buttonDisable =
+  const buttonDisabled =
     formData.comment.length < MIN_CHARACTERS_COUNT
     || formData.comment.length > MAX_CHARACTERS_COUNT
     || !+formData.rating
     || postCommentStatus === Status.Loading;
 
-  // console.log(buttonDisable, 'wtf');
+  const resetData = (evt: FormEvent<HTMLFormElement>) => {
+    setFormData({ ...formData, comment: '', rating: '0' });
+    evt.currentTarget.reset();
+  };
 
-
-  const submitHandler = useCallback((evt: FormEvent<HTMLFormElement>) => {
+  const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (offerId) {
+    if (id) {
       dispatch(postCommentOfferAction({
         comment: formData.comment,
         rating: +formData.rating,
-        offerId: offerId
+        offerId: id
       }));
       if (postCommentStatus === Status.Loading || !(postCommentStatus === Status.Error)) {
         setFormData({ ...formData, comment: '', rating: '0' });
       }
     }
-  }, [offerId, dispatch, formData, postCommentStatus]);
+    resetData(evt);
+  };
 
 
   return (
@@ -107,7 +110,7 @@ function ReviewForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={buttonDisable}
+          disabled={buttonDisabled}
         >{postCommentStatus === Status.Loading ? 'In process...' : 'Submit'}
         </button>
       </div>

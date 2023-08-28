@@ -1,16 +1,13 @@
 import Card from '../card/card';
 import { TOffer } from '../../types/offers';
-//import classNames from 'classnames';
 
 type OffersListProps = {
   offers?: TOffer[];
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
-
 }
 
-
-function OffersList({ offers, onMouseEnter, onMouseLeave}: OffersListProps) {
+function OffersList({ offers, onMouseEnter, onMouseLeave }: OffersListProps) {
 
   return (
     <div className="cities__places-list places__list tabs__content">

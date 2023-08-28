@@ -5,10 +5,8 @@ import { ReviewList } from '../../components/reviews-list/review-list';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { getPercent } from '../../utils/utils';
+import { getRating } from '../../utils/utils';
 import OffersList from '../../components/offers-list/offers-list';
-//import { dropOffer } from '../../store/action';
-//import Loading from '../loading-page/loading-page';
 import { addToFavoriteAction, fetchCommentsOfferAction, fetchNearPlaceOfferAction, fetchOfferAction } from '../../store/api-action';
 import classNames from 'classnames';
 import HostInfo from '../../components/host/host';
@@ -64,9 +62,9 @@ function OfferPage() {
     return <NotFoundPage />;
   }
 
-
-  const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
+  const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = currentOffer;
   const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
+
 
   const onFavoriteClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -122,13 +120,13 @@ function OfferPage() {
                     </use>
                   </svg>
                   <span className="visually-hidden">
-                  To bookmarks
+                    To bookmarks
                   </span>
                 </button>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: getPercent(rating) }}></span>
+                  <span style={{ width: getRating(rating) }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
@@ -141,7 +139,7 @@ function OfferPage() {
                   {bedrooms} {bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
+                  Max {maxAdults} {maxAdults > 1 ? 'adults' : 'adult'}
                 </li>
               </ul>
               <div className="offer__price">
@@ -156,10 +154,13 @@ function OfferPage() {
                 </ul>
               </div>
 
-              <HostInfo hostData={currentOffer} />
-              {currentComments && <ReviewList comments={currentComments} />}
-              {authorizationStatus === AuthorizationStatus.Auth &&
-              <ReviewForm />}
+              <HostInfo host={host} description={description} />
+              <section className="offer__reviews reviews">
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                {currentComments && <ReviewList comments={currentComments} />}
+                {authorizationStatus === AuthorizationStatus.Auth &&
+                  <ReviewForm />}
+              </section>
             </div>
           </div>
 

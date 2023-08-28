@@ -28,7 +28,7 @@ export type TFullOffer = {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: THost;
+  host: TUser;
   images: string[];
   maxAdults: number;
 
@@ -44,14 +44,4 @@ export type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
-}
-
-export type THost = {
-  id: string;
-  description: string;
-  bedrooms: number;
-  goods: string[];
-  host: TUser;
-  images: string[];
-  maxAdults: number;
 }

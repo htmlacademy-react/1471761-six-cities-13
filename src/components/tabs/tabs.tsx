@@ -38,5 +38,4 @@ function Tabs(props: TabsProps): JSX.Element {
   );
 }
 
-
 export default Tabs;

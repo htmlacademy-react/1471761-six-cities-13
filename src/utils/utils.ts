@@ -3,8 +3,9 @@ import { TOffer } from '../types/offers';
 import { TSorting } from '../types/sorting';
 
 
-export const getRating = (rating: number) =>
-  `${Math.round(rating) / STARS_COUNT * 100}%`;
+function getRating(rating: number): string {
+  return `${Math.round(rating) / STARS_COUNT * 100}%`;
+}
 
 function getPercent(number: number): string {
   return `${((Math.round(number) * 100) / STARS_COUNT) * 20}%`;
@@ -27,5 +28,4 @@ function sortingOffersByType(offers: TOffer[], type: TSorting): TOffer[] {
   }
 }
 
-
-export { getPercent, getOffersByCity, sortingOffersByType };
+export { getPercent, getOffersByCity, sortingOffersByType, getRating };
