@@ -6,7 +6,7 @@ import { postCommentOfferAction } from '../../store/api-action';
 import { getCommentStatus } from '../../store/comments-data/comments-data.selectors';
 
 function ReviewForm() {
-  const { offerId } = useParams();
+  const { id } = useParams();
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({ rating: '0', comment: '' });
@@ -18,7 +18,7 @@ function ReviewForm() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const buttonDisable =
+  const buttonDisabled =
     formData.comment.length < MIN_CHARACTERS_COUNT
     || formData.comment.length > MAX_CHARACTERS_COUNT
     || !+formData.rating
@@ -31,11 +31,11 @@ function ReviewForm() {
 
   const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (offerId) {
+    if (id) {
       dispatch(postCommentOfferAction({
         comment: formData.comment,
         rating: +formData.rating,
-        offerId: offerId
+        offerId: id
       }));
       if (postCommentStatus === Status.Loading || !(postCommentStatus === Status.Error)) {
         setFormData({ ...formData, comment: '', rating: '0' });
@@ -110,7 +110,7 @@ function ReviewForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={buttonDisable}
+          disabled={buttonDisabled}
         >{postCommentStatus === Status.Loading ? 'In process...' : 'Submit'}
         </button>
       </div>

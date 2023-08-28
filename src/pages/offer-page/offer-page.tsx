@@ -62,8 +62,9 @@ function OfferPage() {
     return <NotFoundPage />;
   }
 
-  const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods } = currentOffer;
+  const { images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description } = currentOffer;
   const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
+
 
   const onFavoriteClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -153,7 +154,7 @@ function OfferPage() {
                 </ul>
               </div>
 
-              <HostInfo hostData={currentOffer} />
+              <HostInfo host={host} description={description} />
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{currentComments?.length}</span></h2>
                 {currentComments && <ReviewList comments={currentComments} />}

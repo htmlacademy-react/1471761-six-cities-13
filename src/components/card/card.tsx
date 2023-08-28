@@ -54,7 +54,7 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={() => onCardMouseEnter}
+      onMouseEnter={onCardMouseEnter}
       onMouseLeave={onCardMouseLeave}
     >
       {isPremium && <PlaceCardMark />}

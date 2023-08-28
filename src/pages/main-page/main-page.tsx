@@ -8,7 +8,7 @@ import SortingMemo from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
 import { sortingOffersByType } from '../../utils/utils';
 import { getActiveCity, getOffers } from '../../store/data-process/data-process.selectors';
-import EmptyMain from './empty-main-page';
+import EmptyMain from '../empty-main-page/empty-main-page';
 
 function MainPage() {
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);

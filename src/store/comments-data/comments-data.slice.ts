@@ -31,6 +31,7 @@ export const comments = createSlice({
       })
       .addCase(postCommentOfferAction.fulfilled, (state, action) => {
         state.comments.unshift(action.payload);
+        state.status = Status.Success;
       })
       .addCase(postCommentOfferAction.rejected, () => {
         toast.warn('Failed to post comment. Please, try again later');
