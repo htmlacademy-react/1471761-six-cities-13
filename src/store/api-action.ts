@@ -47,14 +47,14 @@ export const fetchNearPlaceOfferAction = createAsyncThunk<TOffer[], string, {
   }
 );
 
-export const fetchCommentsOfferAction = createAsyncThunk<TComment, string, {
+export const fetchCommentsOfferAction = createAsyncThunk<TComment[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'REVIEWS/fetch',
   async (offerId, { extra: api }) => {
-    const { data } = await api.get<TComment>(`${APIRoute.Comments}/${offerId}`);
+    const { data } = await api.get<TComment[]>(`${APIRoute.Comments}/${offerId}`);
     return data;
   }
 );
