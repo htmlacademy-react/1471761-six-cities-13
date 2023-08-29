@@ -36,7 +36,7 @@ function OfferPage() {
   const authorizationStatus = useAppSelector(getAutorizationStatus);
 
   const nearPlaceOffers = nearPlaceOffersList?.slice(0, 3);
-  const currentComments = comments?.slice(-10);
+  const currentComments = comments?.slice(0, 10);
 
   useEffect(() => {
     if (offerId) {

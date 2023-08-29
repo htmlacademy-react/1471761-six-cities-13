@@ -1,12 +1,13 @@
 import { TComment } from '../../types/comments';
 import { getRating } from '../../utils/utils';
-import dayjs from 'dayjs';
 
 type ReviewItemProps = {
   comment: TComment;
 };
 
 function ReviewItem({comment}: ReviewItemProps): JSX.Element {
+
+  const commentDate = new Date(comment.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
   return (
     <li className="reviews__item" key={comment.id}>
@@ -35,7 +36,7 @@ function ReviewItem({comment}: ReviewItemProps): JSX.Element {
         <p className="reviews__text">
           {comment.comment}
         </p>
-        <time className="reviews__time" dateTime={comment.date}>{dayjs(comment.date).format('MMMM YYYY')}
+        <time className="reviews__time" dateTime={comment.date.split('T')[0]}>{commentDate}
         </time>
 
       </div>
