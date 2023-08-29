@@ -6,9 +6,12 @@ import { useAppSelector } from '../../hooks';
 import Tabs from '../../components/tabs/tabs';
 import SortingMemo from '../../components/sorting/sorting';
 import { TSorting } from '../../types/sorting';
-import { sortingOffersByType } from '../../utils/utils';
+import { sortOffersByType } from '../../utils/utils';
 import { getActiveCity, getOffers } from '../../store/data-process/data-process.selectors';
 import EmptyMain from '../empty-main-page/empty-main-page';
+
+import { isOffersStatusLoading } from '../../store/data-process/data-process.selectors';
+import Spinner from '../../components/spinner/spinner';
 
 function MainPage() {
   const [selectedOffer, setSelectedOffer] = useState<string | null>(null);
@@ -22,6 +25,13 @@ function MainPage() {
   const onMouseEnter = (id: string) => setSelectedOffer(id);
   const onMouseLeave = () => setSelectedOffer(null);
   const city = offersByCity[0]?.city;
+  const isOffersDataLoading = useAppSelector(isOffersStatusLoading);
+
+  if (isOffersDataLoading) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
 
@@ -46,7 +56,7 @@ function MainPage() {
                 />
 
                 <OffersList
-                  offers={sortingOffersByType(offersByCity, activeSorting)}
+                  offers={sortOffersByType(offersByCity, activeSorting)}
                   onMouseEnter={onMouseEnter}
                   onMouseLeave={onMouseLeave}
                 />

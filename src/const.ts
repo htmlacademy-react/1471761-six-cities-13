@@ -28,20 +28,6 @@ export enum HousingTypes {
   house = 'House',
 }
 
-export const OFFER_FEATURES = [
-  'Wi-Fi',
-  'Heating',
-  'Kitchen',
-  'Fridge',
-  'Washing machine',
-  'Coffee machine',
-  'Dishwasher',
-  'Towels',
-  'Baby seat',
-  'Cabel TV',
-  'Friendly Ghost'
-] as const;
-
 export const STARS_COUNT = 5;
 export const MIN_CHARACTERS_COUNT = 50;
 export const MAX_CHARACTERS_COUNT = 300;

@@ -60,7 +60,6 @@ export const offers = createSlice({
       .addCase(fetchOfferAction.rejected, (state) => {
         state.isFullOfferDataLoading = false;
         state.hasError = true;
-        //toast.warn('Failed to fetch offer. Please, try again later');
       })
       .addCase(fetchNearPlaceOfferAction.pending, (state) => {
         state.isNearPlaceOffersLoading = true;

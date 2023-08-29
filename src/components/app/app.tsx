@@ -11,23 +11,14 @@ import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to.top';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
-import Spinner from '../spinner/spinner';
-import { getAuthCheckedStatus, getAutorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getErrorStatus, isOffersStatusLoading } from '../../store/data-process/data-process.selectors';
+import { getAutorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getErrorStatus} from '../../store/data-process/data-process.selectors';
 import ErrorPage from '../../pages/error-page/error-page';
 
 function App() {
   const authorizationStatus = useAppSelector(getAutorizationStatus);
-  const isOffersDataLoading = useAppSelector(isOffersStatusLoading);
 
-  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
   const hasError = useAppSelector(getErrorStatus);
-
-  if (!isAuthChecked || isOffersDataLoading) {
-    return (
-      <Spinner />
-    );
-  }
 
   if (hasError) {
     return (

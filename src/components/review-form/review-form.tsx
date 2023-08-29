@@ -13,7 +13,7 @@ function ReviewForm() {
 
   const postCommentStatus = useAppSelector(getCommentStatus);
 
-  const onHandlerFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -29,7 +29,7 @@ function ReviewForm() {
     evt.currentTarget.reset();
   };
 
-  const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (id) {
       dispatch(postCommentOfferAction({
@@ -50,7 +50,7 @@ function ReviewForm() {
       className="reviews__form form"
       action="#"
       method="post"
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit}
     >
       <label
         className="reviews__label form__label"
@@ -71,7 +71,7 @@ function ReviewForm() {
                 id={`${index}-stars`}
                 type="radio"
                 checked={+formData.rating === index}
-                onChange={onHandlerFormChange}
+                onChange={handleFormChange}
               />
               <label
                 htmlFor={`${index}-stars`}
@@ -93,7 +93,7 @@ function ReviewForm() {
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.comment}
-        onChange={onHandlerFormChange}
+        onChange={handleFormChange}
         maxLength={MAX_CHARACTERS_COUNT}
         disabled={postCommentStatus === Status.Loading}
       >

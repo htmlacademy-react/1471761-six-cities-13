@@ -19,7 +19,7 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
 
   const authorizationStatus = useAppSelector(getAutorizationStatus);
 
-  const onFavoriteClick = () => {
+  const handleFavoriteClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(addToFavoriteAction({ status: (!isFavorite ? 1 : 0), id: id }));
       return;
@@ -50,7 +50,7 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
           <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
-            onClick={onFavoriteClick}
+            onClick={handleFavoriteClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -65,7 +65,7 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offers/${id}`}>
+          <Link to={`/offer/${id}`}>
             {title}
           </Link>
         </h2>
