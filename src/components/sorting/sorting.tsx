@@ -16,21 +16,21 @@ function Sorting({ activeSorting, onChange }: SortingProps) {
     transform: `translateY(-50%) ${isOpened ? 'rotate(180deg)' : ''}`
   };
 
-  function handleKeydown(evt: KeyboardEvent) {
+  const handleKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape' && isOpened) {
       evt.preventDefault();
       setIsOpened(false);
     }
-  }
+  };
 
-  function handleTypeClick() {
+  const handleTypeClick = () => {
     setIsOpened((prevIsOpen) => !prevIsOpen);
-  }
+  };
 
-  function sortingItemClickHandler(type: TSorting) {
+  const handleSortItemClick = (type: TSorting) => {
     onChange(type);
     setIsOpened(false);
-  }
+  };
 
 
   return (
@@ -62,9 +62,9 @@ function Sorting({ activeSorting, onChange }: SortingProps) {
             key={type}
             className={classNames({ 'places__option--active': type === activeSorting }, 'places__option')}
             tabIndex={0}
-            onClick={() => sortingItemClickHandler(type as TSorting)}
+            onClick={() => handleSortItemClick(type as TSorting)}
           >
-            {type};
+            {type}
           </li>
         ))}
       </ul>

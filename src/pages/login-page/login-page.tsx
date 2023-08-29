@@ -54,6 +54,7 @@ function LoginPage() {
                 <label className="visually-hidden">E-mail</label>
                 <input
                   ref={loginRef}
+                  className="login__input form__input"
                   id="name"
                   type="email"
                   name="email"
@@ -65,6 +66,7 @@ function LoginPage() {
                 <label className="visually-hidden">Password</label>
                 <input
                   ref={passwordRef}
+                  className="login__input form__input"
                   type="password"
                   name="password"
                   placeholder="Password"

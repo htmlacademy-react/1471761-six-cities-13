@@ -13,7 +13,6 @@ import HostInfo from '../../components/host/host';
 import { HousingTypes, AuthorizationStatus, AppRoute } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewForm from '../../components/review-form/review-form';
-import Spinner from '../../components/spinner/spinner';
 import { getNearPlaceOffers, getOffer, isNearPlaceOffersStatusLoading, isOfferStatusLoading } from '../../store/data-process/data-process.selectors';
 import { dropOffer } from '../../store/data-process/data-process.slice';
 import { getComments, isCommentsStatusLoading } from '../../store/comments-data/comments-data.selectors';
@@ -37,7 +36,7 @@ function OfferPage() {
   const authorizationStatus = useAppSelector(getAutorizationStatus);
 
   const nearPlaceOffers = nearPlaceOffersList?.slice(0, 3);
-  const currentComments = comments?.slice(-10);
+  const currentComments = comments?.slice(0, 10);
 
   useEffect(() => {
     if (offerId) {
@@ -52,10 +51,8 @@ function OfferPage() {
   }, [offerId, dispatch]);
 
 
-  if (isFullOfferLoading || isFullOfferLoading || isNearPlaceOffersLoading || isCommentsDataLoading) {
-    return (
-      <Spinner />
-    );
+  if (isFullOfferLoading || isNearPlaceOffersLoading || isCommentsDataLoading) {
+    return;
   }
 
   if (!currentOffer) {
@@ -66,7 +63,7 @@ function OfferPage() {
   const mapOffers = nearPlaceOffers && [...nearPlaceOffers, currentOffer];
 
 
-  const onFavoriteClick = () => {
+  const handleFavoriteClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(addToFavoriteAction({ status: (!isFavorite ? 1 : 0), id: offerId as string }));
       return;
@@ -109,7 +106,7 @@ function OfferPage() {
                   {title}
                 </h1>
                 <button
-                  className={favClass} type="button" onClick={onFavoriteClick}
+                  className={favClass} type="button" onClick={handleFavoriteClick}
                 >
                   <svg
                     className="offer__bookmark-icon"

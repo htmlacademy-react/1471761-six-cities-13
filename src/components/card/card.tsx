@@ -21,11 +21,11 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
   const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAutorizationStatus);
 
-  const onCardMouseEnter = () => {
+  const handleCardMouseEnter = () => {
     onMouseEnter?.(id);
   };
 
-  const onCardMouseLeave = () => {
+  const handleCardMouseLeave = () => {
     onMouseLeave?.();
   };
 
@@ -36,7 +36,7 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
     </div>
   );
 
-  const onFavoriteClick = () => {
+  const handleFavoriteClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(addToFavoriteAction({ status: (!isFavorite ? 1 : 0), id: id }));
       return;
@@ -53,8 +53,8 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={onCardMouseEnter}
-      onMouseLeave={onCardMouseLeave}
+      onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={handleCardMouseLeave}
     >
       {isPremium && <PlaceCardMark />}
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
@@ -74,7 +74,7 @@ function Card({ offer, cardType, onMouseEnter, onMouseLeave }: CardProp): JSX.El
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={favClass} type="button" onClick={onFavoriteClick}>
+          <button className={favClass} type="button" onClick={handleFavoriteClick}>
             <svg
               className="place-card__bookmark-icon"
               width={18}

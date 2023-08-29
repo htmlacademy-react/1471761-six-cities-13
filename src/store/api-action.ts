@@ -145,5 +145,6 @@ export const addToFavoriteAction = createAsyncThunk<
     await api.post(`${APIRoute.Favorites}/${id}/${status}`);
     dispatch(fetchFavoritesAction());
     dispatch(fetchOffersAction());
+    dispatch(fetchOfferAction(id));
   }
 );
